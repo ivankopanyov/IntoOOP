@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="IntoOOP.FileManager">
+    <Position X="13.5" Y="4.75" Width="2.75" />
+    <AssociationLine Name="fileManagerUI" Type="IntoOOP.FileManagerUI" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.5" Y="5.302" />
+        <Point X="10.688" Y="5.302" />
+        <Point X="10.688" Y="5.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAABBAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>FileManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="commandControl" />
+      <Field Name="fileManagerUI" />
+      <Field Name="stateControl" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="IntoOOP.CommandControl">
+    <Position X="13.25" Y="6.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AKAAAAAgAAJAAAAAAAAAAAAQAAAAAAAAAAECAAAAAAA=</HashCode>
+      <FileName>CommandControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IntoOOP.FileManagerUI">
+    <Position X="8.25" Y="5.75" Width="4" />
+    <AssociationLine Name="currentDir" Type="IntoOOP.TextArea" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="10.25" Y="7.238" />
+        <Point X="10.25" Y="8.417" />
+        <Point X="6.562" Y="8.417" />
+        <Point X="6.562" Y="9" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="info" Type="IntoOOP.TextArea" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9.219" Y="7.238" />
+        <Point X="9.219" Y="8.02" />
+        <Point X="4.938" Y="8.02" />
+        <Point X="4.938" Y="9" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="mainContainer" Type="IntoOOP.Container" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9.312" Y="5.75" />
+        <Point X="9.312" Y="1.857" />
+        <Point X="7.5" Y="1.857" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="tree" Type="IntoOOP.TextArea" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="11.281" Y="7.238" />
+        <Point X="11.281" Y="9.562" />
+        <Point X="7.25" Y="9.562" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="CurrentDir" Type="IntoOOP.TextArea" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.703" Y="7.238" />
+        <Point X="8.703" Y="7.853" />
+        <Point X="4.188" Y="7.853" />
+        <Point X="4.188" Y="9" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Info" Type="IntoOOP.TextArea" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="9.734" Y="7.238" />
+        <Point X="9.734" Y="8.208" />
+        <Point X="5.688" Y="8.208" />
+        <Point X="5.688" Y="9" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAwAEAAIAACAAAAAgAAAAAAAAAAAEAAAQAAAAkAAAAI=</HashCode>
+      <FileName>FileManagerUI.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="commandLine" />
+      <Field Name="currentDir" />
+      <Field Name="info" />
+      <Field Name="mainContainer" />
+      <Field Name="tree" />
+      <Property Name="CurrentDir" />
+      <Property Name="CommandLine" />
+      <Property Name="Info" />
+      <Property Name="Tree" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="IntoOOP.StateControl">
+    <Position X="13.25" Y="0.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAASAAIAAEAAAAAQAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>StateControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IntoOOP.Window">
+    <Position X="0.5" Y="5.5" Width="2.5" />
+    <AssociationLine Name="parent" Type="IntoOOP.Container" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.25" Y="5.5" />
+        <Point X="2.25" Y="5.05" />
+        <Point X="5.875" Y="5.05" />
+        <Point X="5.875" Y="3.213" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Parent" Type="IntoOOP.Container" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2.688" Y="5.5" />
+        <Point X="2.688" Y="5.258" />
+        <Point X="7.062" Y="5.258" />
+        <Point X="7.062" Y="3.213" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="MainContainer" Type="IntoOOP.Container" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="2" Y="5.5" />
+        <Point X="2" Y="2.75" />
+        <Point X="3.5" Y="2.75" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAwBAAAAAQIAAAACAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Window.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="parent" />
+      <Property Name="Parent" />
+      <Property Name="MainContainer" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="IntoOOP.Container">
+    <Position X="3.5" Y="0.5" Width="4" />
+    <InheritanceLine Type="IntoOOP.Window" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.875" Y="5.5" />
+        <Point X="0.875" Y="1.75" />
+        <Point X="3.5" Y="1.75" />
+      </Path>
+    </InheritanceLine>
+    <AssociationLine Name="direction" Type="IntoOOP.Direction" FixedToPoint="true">
+      <Path>
+        <Point X="3.5" Y="1.375" />
+        <Point X="2.25" Y="1.375" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Stack" Type="IntoOOP.Window" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="3.5" Y="1.938" />
+        <Point X="1.625" Y="1.938" />
+        <Point X="1.625" Y="5.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAKAAAACAAAAAAgAAAAIBAAAAAAEAAAAA=</HashCode>
+      <FileName>Container.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="direction" />
+      <Property Name="Direction" />
+      <Property Name="Stack" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="IntoOOP.InputField">
+    <Position X="3.75" Y="5.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAIAAAAAAAAAAAAgAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InputField.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IntoOOP.TextArea">
+    <Position X="3.5" Y="9" Width="3.75" />
+    <InheritanceLine Type="IntoOOP.Window" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="0.938" Y="8.084" />
+        <Point X="0.938" Y="11.188" />
+        <Point X="3.5" Y="11.188" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAACAAAAgAIAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>TextArea.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IntoOOP.ChangeDirectoryCommand">
+    <Position X="20.5" Y="0.5" Width="4.25" />
+    <AssociationLine Name="Output" Type="IntoOOP.TextArea" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="24.75" Y="1.438" />
+        <Point X="26.479" Y="1.438" />
+        <Point X="26.479" Y="14.604" />
+        <Point X="3.75" Y="14.604" />
+        <Point X="3.75" Y="11.521" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAIAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ChangeDirectoryCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Output" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IntoOOP.ListCommand">
+    <Position X="20.5" Y="2.5" Width="5" />
+    <AssociationLine Name="Output" Type="IntoOOP.TextArea" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="25.5" Y="3.438" />
+        <Point X="26.25" Y="3.438" />
+        <Point X="26.25" Y="14.286" />
+        <Point X="4.688" Y="14.286" />
+        <Point X="4.688" Y="11.521" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAIAAAhAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ListCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Output" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IntoOOP.CopyCommand">
+    <Position X="20.5" Y="4.75" Width="4.25" />
+    <AssociationLine Name="Output" Type="IntoOOP.TextArea" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="24.75" Y="5.688" />
+        <Point X="26" Y="5.688" />
+        <Point X="26" Y="13.974" />
+        <Point X="5.625" Y="13.974" />
+        <Point X="5.625" Y="11.521" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAQAAAAIAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CopyCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Output" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IntoOOP.RemoveCommand">
+    <Position X="20.5" Y="7" Width="3.75" />
+    <AssociationLine Name="Output" Type="IntoOOP.TextArea" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="24.25" Y="7.938" />
+        <Point X="25.719" Y="7.938" />
+        <Point X="25.719" Y="13.661" />
+        <Point X="6.438" Y="13.661" />
+        <Point X="6.438" Y="11.521" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAIAAABAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>RemoveCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Output" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IntoOOP.InfoCommand">
+    <Position X="20.5" Y="9.25" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAIAAABAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>InfoCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Output" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IntoOOP.ExitCommand">
+    <Position X="20.5" Y="11.5" Width="3.5" />
+    <AssociationLine Name="Output" Type="IntoOOP.TextArea" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="20.5" Y="12.47" />
+        <Point X="8.652" Y="12.47" />
+        <Point X="8.652" Y="11.375" />
+        <Point X="7.25" Y="11.375" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQEAAAIAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ExitCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Output" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="IntoOOP.ICommand">
+    <Position X="17.25" Y="4.25" Width="2.75" />
+    <AssociationLine Name="Output" Type="IntoOOP.TextArea" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="18.125" Y="5.805" />
+        <Point X="18.125" Y="10.375" />
+        <Point X="7.25" Y="10.375" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAIAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ICommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Output" />
+    </ShowAsAssociation>
+  </Interface>
+  <Enum Name="IntoOOP.Direction">
+    <Position X="0.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Direction.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
