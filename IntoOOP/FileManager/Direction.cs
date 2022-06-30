@@ -1,4 +1,4 @@
-﻿namespace IntoOOP;
+﻿namespace IntoOOP.FileManager;
 
 public enum Direction
 {

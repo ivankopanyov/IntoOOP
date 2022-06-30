@@ -1,6 +1,6 @@
-﻿namespace IntoOOP;
+﻿namespace IntoOOP.FileManager.UI;
 
-public class TextArea: Window
+public class TextArea : Window
 {
     private string content = string.Empty;
     private int pageNumber = 1;
@@ -8,8 +8,8 @@ public class TextArea: Window
     public bool ShowPageNumber { get; set; }
 
     public TextArea(int weigth) : base(weigth)
-    { 
-    
+    {
+
     }
 
     public void SetContent(string content, int pageNumber = 1)
@@ -17,7 +17,7 @@ public class TextArea: Window
         if (pageNumber <= 0)
             throw new ArgumentException();
 
-        if (content == null) 
+        if (content == null)
             content = string.Empty;
     }
 }

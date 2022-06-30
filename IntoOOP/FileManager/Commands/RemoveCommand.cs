@@ -1,4 +1,6 @@
-﻿namespace IntoOOP;
+﻿using IntoOOP.FileManager.UI;
+
+namespace IntoOOP.FileManager.Commands;
 
 public class RemoveCommand : ICommand
 {
@@ -14,11 +16,11 @@ public class RemoveCommand : ICommand
 
     public void Execute(string args, string currentDir)
     {
-        
+
     }
 
     private void RecursiveRemove(string dir)
-    { 
-    
+    {
+
     }
 }

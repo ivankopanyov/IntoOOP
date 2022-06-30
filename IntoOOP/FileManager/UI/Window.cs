@@ -1,4 +1,4 @@
-﻿namespace IntoOOP;
+﻿namespace IntoOOP.FileManager.UI;
 
 public abstract class Window
 {
@@ -7,20 +7,20 @@ public abstract class Window
     private bool showBorder;
 
     public Container Parent
-    { 
+    {
         get => parent;
         protected set
-        { 
-            this.parent = value;
+        {
+            parent = value;
         }
     }
 
-    public int Weigth 
-    { 
+    public int Weigth
+    {
         get => weigth;
         set
         {
-            if (value <= 0) 
+            if (value <= 0)
                 throw new ArgumentException();
             weigth = value;
         }
@@ -36,7 +36,7 @@ public abstract class Window
     }
 
     public void Draw(int x, int y, int width, int heigth)
-    { 
-    
+    {
+
     }
 }

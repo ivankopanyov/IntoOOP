@@ -1,4 +1,6 @@
-﻿namespace IntoOOP;
+﻿using IntoOOP.FileManager.UI;
+
+namespace IntoOOP.FileManager.Commands;
 
 public class ExitCommand : ICommand
 {
@@ -14,7 +16,7 @@ public class ExitCommand : ICommand
 
     public void Execute(string args, string currentDir)
     {
-        
+
     }
 
     private async void KillProcess()

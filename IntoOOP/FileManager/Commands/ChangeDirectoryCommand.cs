@@ -1,4 +1,6 @@
-﻿namespace IntoOOP;
+﻿using IntoOOP.FileManager.UI;
+
+namespace IntoOOP.FileManager.Commands;
 
 public class ChangeDirectoryCommand : ICommand
 {
@@ -14,6 +16,6 @@ public class ChangeDirectoryCommand : ICommand
 
     public void Execute(string args, string currentDir)
     {
-        
+
     }
 }

@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace IntoOOP;
+﻿namespace IntoOOP.FileManager.UI;
 
 public class FileManagerUI
 {

@@ -1,4 +1,6 @@
-﻿namespace IntoOOP;
+﻿using IntoOOP.FileManager.UI;
+
+namespace IntoOOP.FileManager.Commands;
 
 public class InfoCommand : ICommand
 {
@@ -14,11 +16,11 @@ public class InfoCommand : ICommand
 
     public void Execute(string args, string currentDir)
     {
-        
+
     }
 
     private int RecursiveSize(string dir)
-    { 
-        return default(int);
+    {
+        return default;
     }
 }

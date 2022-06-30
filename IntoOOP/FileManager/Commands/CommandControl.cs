@@ -1,4 +1,4 @@
-﻿namespace IntoOOP;
+﻿namespace IntoOOP.FileManager.Commands;
 
 public class CommandControl
 {
@@ -9,17 +9,17 @@ public class CommandControl
     public string[] Cache => cache.ToArray();
 
     public void AddCommands(IEnumerable<ICommand> commands)
-    { 
-    
+    {
+
     }
 
     public void ExecuteCommand(string command, string currentDir)
-    { 
-    
+    {
+
     }
 
     private void AddCache(string command)
-    { 
+    {
 
     }
 

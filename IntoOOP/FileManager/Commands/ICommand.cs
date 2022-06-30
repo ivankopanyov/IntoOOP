@@ -1,4 +1,6 @@
-﻿namespace IntoOOP
+﻿using IntoOOP.FileManager.UI;
+
+namespace IntoOOP.FileManager.Commands
 {
     public interface ICommand
     {

@@ -1,4 +1,4 @@
-﻿namespace IntoOOP;
+﻿namespace IntoOOP.FileManager.UI;
 
 public class Container : Window
 {

@@ -1,4 +1,4 @@
-﻿namespace IntoOOP;
+﻿namespace IntoOOP.FileManager.UI;
 
 public class InputField : Window
 {
@@ -6,8 +6,8 @@ public class InputField : Window
     private int limit;
 
     public InputField(int weigth) : base(weigth)
-    { 
-        
+    {
+
     }
 
     public string Read(string[] selectedValues)

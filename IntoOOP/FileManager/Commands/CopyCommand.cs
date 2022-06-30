@@ -1,4 +1,6 @@
-﻿namespace IntoOOP;
+﻿using IntoOOP.FileManager.UI;
+
+namespace IntoOOP.FileManager.Commands;
 
 public class CopyCommand : ICommand
 {
@@ -14,11 +16,11 @@ public class CopyCommand : ICommand
 
     public void Execute(string args, string currentDir)
     {
-        
+
     }
 
     private void RecursiveCopy(string source, string dest)
-    { 
-    
+    {
+
     }
 }
