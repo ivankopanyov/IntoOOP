@@ -26,16 +26,33 @@ public class Account
     private AccountType _accountType;
 
     /// <summary>
+    /// Конструктор класса банковского счета.
+    /// </summary>
+    public Account() => InitNumber();
+
+    /// <summary>
+    /// Конструктор класса банковского счета.
+    /// </summary>
+    /// <param name="balance">Устанавливает баланс счета.</param>
+    public Account(decimal balance) : this() => _balance = balance;
+
+    /// <summary>
+    /// Конструктор класса банковского счета.
+    /// </summary>
+    /// <param name="accountType">Устанавливает тип счета.</param>
+    public Account(AccountType accountType) : this() => _accountType = accountType;
+
+    /// <summary>
+    /// Конструктор класса банковского счета.
+    /// </summary>
+    /// <param name="_balance">Устанавливает баланс счета.</param>
+    /// <param name="accountType">Устанавливает тип счета.</param>
+    public Account(decimal _balance, AccountType accountType) : this(_balance) => _accountType = accountType;
+
+    /// <summary>
     /// Устанавливает номер счета, прибавляя 1 к номеру последнего созданного счета.
     /// </summary>
-    /// <exception cref="ArgumentException">Возбкждается, если номер счета уже был установлен.</exception>
-    public void InitNumber()
-    {
-        if (_number != 0)
-            throw new ArgumentException("Номер счета уже установлен");
-
-        _number = ++_lastNumber;
-    }
+    private void InitNumber() => _number = ++_lastNumber;
 
     /// <summary>
     /// Получение номера счета.
@@ -44,22 +61,10 @@ public class Account
     public int GetNumber() => _number;
 
     /// <summary>
-    /// Устанавливает баланс на счете.
-    /// </summary>
-    /// <param name="balance">Новый баланс счета.</param>
-    public void SetBalance(decimal balance) => _balance = balance;
-
-    /// <summary>
     /// Получение баланса счета.
     /// </summary>
     /// <returns>Баланс счета.</returns>
     public decimal GetBalance() => _balance;
-
-    /// <summary>
-    /// Устанавливает тип счета.
-    /// </summary>
-    /// <param name="accountType">Новый тип счета.</param>
-    public void SetAccountType(AccountType accountType) => _accountType = accountType;
 
     /// <summary>
     /// Получение типа счета.

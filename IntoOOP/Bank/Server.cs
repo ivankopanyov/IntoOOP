@@ -42,10 +42,7 @@ public static class Server
             throw new Exception($"Максимальное колличество счетов: {ACCOUNT_LIMIT}");
 
         var amount = type == AccountType.Credit ? CREDIT_AMOUNT : 0;
-        var account = new Account();
-        account.InitNumber();
-        account.SetBalance(amount);
-        account.SetAccountType(type);
+        var account = new Account(amount, type);
         _accounts.Add(account);
         return account;
     }

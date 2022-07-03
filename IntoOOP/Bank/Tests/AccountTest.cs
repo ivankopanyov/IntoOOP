@@ -6,22 +6,20 @@
         {
             new AccountTestCase()
             {
-                IterationsNumber = 1,
-                Balance = 0,
+                Balance = 1_000_000,
                 AccountType = AccountType.Credit,
             },
 
             new AccountTestCase()
             {
-                IterationsNumber = 1,
-                Balance = -100.10m,
+                Balance = -99_999_999.99m,
                 AccountType = AccountType.Deposit,
             },
 
             new AccountTestCase()
             {
-                IterationsNumber = 2,
-                ExpectedArgumentException = true
+                Balance = 0,
+                AccountType = AccountType.Debit,
             }
 
         };
@@ -34,35 +32,24 @@
             
             bool result = true;
 
-            var accounts = new Account[] { new Account(), new Account() };
+            var account1 = new Account();
+            if (account1.GetBalance() != default(decimal)) result = false;
+            if (account1.GetAccountType() != default(AccountType)) result = false;
 
-            foreach (var account in accounts)
-            {
+            var account2 = new Account(testCase.Balance);
+            if (account2.GetBalance() != testCase.Balance) result = false;
+            if (account2.GetAccountType() != default(AccountType)) result = false;
+            if (account1.GetNumber() == account2.GetNumber()) result = false;
 
-                for (int i = 0; i < testCase.IterationsNumber; i++)
-                {
-                    try
-                    {
-                        account.InitNumber();
-                    }
-                    catch (ArgumentException)
-                    {
-                        result = testCase.ExpectedArgumentException;
-                    }
-                    catch (Exception)
-                    {
-                        result = false;
-                    }
+            var account3 = new Account(testCase.AccountType);
+            if (account3.GetBalance() != default(decimal)) result = false;
+            if (account3.GetAccountType() != testCase.AccountType) result = false;
+            if (account2.GetNumber() == account3.GetNumber()) result = false;
 
-                    account.SetBalance(testCase.Balance);
-                    if (testCase.Balance != account.GetBalance()) result = false;
-                    account.SetAccountType(testCase.AccountType);
-                    if (testCase.AccountType != account.GetAccountType()) result = false;
-                }
-            }
-
-            if (accounts[0].GetNumber() == accounts[1].GetNumber()) 
-                result =  false; 
+            var account4 = new Account(testCase.Balance, testCase.AccountType);
+            if (account4.GetBalance() != testCase.Balance) result = false;
+            if (account4.GetAccountType() != testCase.AccountType) result = false;
+            if (account3.GetNumber() == account4.GetNumber()) result = false;
 
             Console.WriteLine("\nRESULT: " + (result ? "VALID TEST" : "INVALID TEST") + '\n');
         }
