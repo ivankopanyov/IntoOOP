@@ -167,7 +167,7 @@ public class ScreenBuilder
     /// <param name="account">Счет.</param>
     /// <returns>Текст с информацией о счете.</returns>
     private static UIText GetAccountText(Account account) =>
-        GetText(account.ToString()).Add(GetDisplayBalance(account.GetBalance()), account.GetBalance() > 0 ? ConsoleColor.Green : ConsoleColor.White);
+        GetText(account.ToString()).Add(account.DisplayBalance, account.Balance > 0 ? ConsoleColor.Green : ConsoleColor.White);
 
     /// <summary>
     /// Создание текста для вывода на консоль.
@@ -214,11 +214,4 @@ public class ScreenBuilder
     /// <returns>Новая кнопка типа счета.</returns>
     private static UIButton GetAccountTypeButton(AccountType type) =>
         new UIButton(GetText(Account.GetDisplayAccountType(type)), 4);
-
-    /// <summary>
-    /// Форматирование баланса счета.
-    /// </summary>
-    /// <param name="balance">Текущий баланс счета.</param>
-    /// <returns>Строка с отформатированным балансом счета.<returns>
-    private static string GetDisplayBalance(decimal balance) => balance.ToString("N2", System.Globalization.CultureInfo.CreateSpecificCulture("ru-RU"));
 }

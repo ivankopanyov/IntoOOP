@@ -26,6 +26,31 @@ public class Account
     private AccountType _accountType;
 
     /// <summary>
+    /// Номер счета.
+    /// </summary>
+    public int Number => _number;
+
+    /// <summary>
+    /// Текущий баланс счета.
+    /// </summary>
+    public decimal Balance => _balance;
+
+    /// <summary>
+    /// Тип счета.
+    /// </summary>
+    public AccountType AccountType => _accountType;
+
+    /// <summary>
+    /// Название типа счета.
+    /// </summary>
+    public string DisplayAccountType => GetDisplayAccountType(_accountType);
+
+    /// <summary>
+    /// Строка с балансом счета.
+    /// </summary>
+    public string DisplayBalance => _balance.ToString("N2", System.Globalization.CultureInfo.CreateSpecificCulture("ru-RU"));
+
+    /// <summary>
     /// Конструктор класса банковского счета.
     /// </summary>
     public Account() => InitNumber();
@@ -53,24 +78,6 @@ public class Account
     /// Устанавливает номер счета, прибавляя 1 к номеру последнего созданного счета.
     /// </summary>
     private void InitNumber() => _number = ++_lastNumber;
-
-    /// <summary>
-    /// Получение номера счета.
-    /// </summary>
-    /// <returns>Номер счета.</returns>
-    public int GetNumber() => _number;
-
-    /// <summary>
-    /// Получение баланса счета.
-    /// </summary>
-    /// <returns>Баланс счета.</returns>
-    public decimal GetBalance() => _balance;
-
-    /// <summary>
-    /// Получение типа счета.
-    /// </summary>
-    /// <returns>Тип счета.</returns>
-    public AccountType GetAccountType() => _accountType;
 
     /// <summary>
     /// Получение названия типа счета.

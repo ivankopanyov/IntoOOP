@@ -6,19 +6,19 @@
         {
             new AccountTestCase()
             {
-                Balance = 1_000_000,
+                Balance = 123_456.789m,
                 AccountType = AccountType.Credit,
             },
 
             new AccountTestCase()
             {
-                Balance = -99_999_999.99m,
+                Balance = -0.01m,
                 AccountType = AccountType.Deposit,
             },
 
             new AccountTestCase()
             {
-                Balance = 0,
+                Balance = 101,
                 AccountType = AccountType.Debit,
             }
 
@@ -33,23 +33,23 @@
             bool result = true;
 
             var account1 = new Account();
-            if (account1.GetBalance() != default(decimal)) result = false;
-            if (account1.GetAccountType() != default(AccountType)) result = false;
+            if (account1.Balance != default(decimal)) result = false;
+            if (account1.AccountType != default(AccountType)) result = false;
 
             var account2 = new Account(testCase.Balance);
-            if (account2.GetBalance() != testCase.Balance) result = false;
-            if (account2.GetAccountType() != default(AccountType)) result = false;
-            if (account1.GetNumber() == account2.GetNumber()) result = false;
+            if (account2.Balance != testCase.Balance) result = false;
+            if (account2.AccountType != default(AccountType)) result = false;
+            if (account1.Number == account2.Number) result = false;
 
             var account3 = new Account(testCase.AccountType);
-            if (account3.GetBalance() != default(decimal)) result = false;
-            if (account3.GetAccountType() != testCase.AccountType) result = false;
-            if (account2.GetNumber() == account3.GetNumber()) result = false;
+            if (account3.Balance != default(decimal)) result = false;
+            if (account3.AccountType != testCase.AccountType) result = false;
+            if (account2.Number == account3.Number) result = false;
 
             var account4 = new Account(testCase.Balance, testCase.AccountType);
-            if (account4.GetBalance() != testCase.Balance) result = false;
-            if (account4.GetAccountType() != testCase.AccountType) result = false;
-            if (account3.GetNumber() == account4.GetNumber()) result = false;
+            if (account4.Balance != testCase.Balance) result = false;
+            if (account4.AccountType != testCase.AccountType) result = false;
+            if (account3.Number == account4.Number) result = false;
 
             Console.WriteLine("\nRESULT: " + (result ? "VALID TEST" : "INVALID TEST") + '\n');
         }
