@@ -43,7 +43,7 @@ public static class Server
 
         var amount = type == AccountType.Credit ? CREDIT_AMOUNT : 0;
         var account = new Account();
-        account.SetNumber(Random.Shared.Next(1, 1_000_000));
+        account.InitNumber();
         account.SetBalance(amount);
         account.SetAccountType(type);
         _accounts.Add(account);

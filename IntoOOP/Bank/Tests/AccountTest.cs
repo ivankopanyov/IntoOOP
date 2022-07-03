@@ -7,24 +7,20 @@
             new AccountTestCase()
             {
                 IterationsNumber = 1,
-                Number = 10,
-                Balance = 100,
-                AccountType = AccountType.Debit,
-                ExpectedArgumentException = false,
-                ExpectedArgumentOutOfRangeException = false
+                Balance = 0,
+                AccountType = AccountType.Credit,
             },
 
             new AccountTestCase()
             {
                 IterationsNumber = 1,
-                Number = 0,
-                ExpectedArgumentOutOfRangeException = true
+                Balance = -100.10m,
+                AccountType = AccountType.Deposit,
             },
 
             new AccountTestCase()
             {
                 IterationsNumber = 2,
-                Number = 100,
                 ExpectedArgumentException = true
             }
 
@@ -35,32 +31,39 @@
             var properties = typeof(AccountTestCase).GetProperties();
             foreach (var property in properties)
                 Console.WriteLine(property.Name + " = " + property.GetValue(testCase));
-
+            
             bool result = true;
 
-            var account = new Account();
+            var accounts = new Account[] { new Account(), new Account() };
 
-            for (int i = 0; i < testCase.IterationsNumber; i++)
+            foreach (var account in accounts)
             {
-                try
-                {
-                    account.SetNumber(testCase.Number);
-                }
-                catch (ArgumentOutOfRangeException)
-                {
-                    result = testCase.ExpectedArgumentOutOfRangeException;
-                }
-                catch (ArgumentException)
-                {
-                    result = testCase.ExpectedArgumentException;
-                }
 
-                if (testCase.Number != account.GetNumber()) result = false;
-                account.SetBalance(testCase.Balance);
-                if (testCase.Balance != account.GetBalance()) result = false;
-                account.SetAccountType(testCase.AccountType);
-                if (testCase.AccountType != account.GetAccountType()) result = false;
+                for (int i = 0; i < testCase.IterationsNumber; i++)
+                {
+                    try
+                    {
+                        account.InitNumber();
+                    }
+                    catch (ArgumentException)
+                    {
+                        result = testCase.ExpectedArgumentException;
+                    }
+                    catch (Exception)
+                    {
+                        result = false;
+                    }
+
+                    account.SetBalance(testCase.Balance);
+                    if (testCase.Balance != account.GetBalance()) result = false;
+                    account.SetAccountType(testCase.AccountType);
+                    if (testCase.AccountType != account.GetAccountType()) result = false;
+                }
             }
+
+            if (accounts[0].GetNumber() == accounts[1].GetNumber()) 
+                result =  false; 
+
             Console.WriteLine("\nRESULT: " + (result ? "VALID TEST" : "INVALID TEST") + '\n');
         }
 

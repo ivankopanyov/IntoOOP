@@ -6,6 +6,11 @@
 public class Account
 {
     /// <summary>
+    /// Номер последнего созданного счета.
+    /// </summary>
+    private static int _lastNumber;
+
+    /// <summary>
     /// Номер счета.
     /// </summary>
     private int _number;
@@ -21,20 +26,15 @@ public class Account
     private AccountType _accountType;
 
     /// <summary>
-    /// Устанавливает номер счета.
+    /// Устанавливает номер счета, прибавляя 1 к номеру последнего созданного счета.
     /// </summary>
-    /// <param name="number"></param>
-    /// <exception cref="ArgumentOutOfRangeException">Возбкждается, если передано число меньше или раное 0.</exception>
     /// <exception cref="ArgumentException">Возбкждается, если номер счета уже был установлен.</exception>
-    public void SetNumber(int number)
+    public void InitNumber()
     {
-        if (number < 0)
-            throw new ArgumentOutOfRangeException(nameof(number), "Номер счета не должен быть меньше 0.");
-
         if (_number != 0)
             throw new ArgumentException("Номер счета уже установлен");
 
-        _number = number;
+        _number = ++_lastNumber;
     }
 
     /// <summary>
