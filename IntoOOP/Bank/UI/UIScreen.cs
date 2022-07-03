@@ -31,6 +31,9 @@ public class UIScreen
     /// </summary>
     private UIText _postMessage = new UIText().Add(string.Empty);
 
+    /// <summary>
+    /// Заголовок приложения.
+    /// </summary>
     private UIText _header;
 
     /// <summary>
@@ -61,7 +64,8 @@ public class UIScreen
     /// <summary>
     /// Общая высота заголовков экрана.
     /// </summary>
-    private int HeaderHeight => (_header.Length > 0 ? 2 : 0) + (_message.Length > 0 ? 2 : 0) + (Label.Length > 0 ? 2 : 0) + (_postMessage.Length > 0 ? 2 : 0);
+    private int HeaderHeight => (_header.Length > 0 ? 2 : 0) + (_message.Length > 0 ? 2 : 0) + 
+        (Label.Length > 0 ? 2 : 0) + (_postMessage.Length > 0 ? 2 : 0);
 
     /// <summary>
     /// Конструктор класса экрана.

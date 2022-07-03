@@ -2,8 +2,11 @@
 
 public class AccountTestCase
 {
+    public Account Account { get; set; }
 
-    public decimal Balance { get; set; }
+    public decimal DepositAmount { get; set; }
 
-    public AccountType AccountType { get; set; }
+    public decimal WithdrawAmount { get; set; }
+
+    public bool ExpectedArgumentException { get; set; }
 }

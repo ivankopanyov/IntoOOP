@@ -6,22 +6,43 @@
         {
             new AccountTestCase()
             {
-                Balance = 123_456.789m,
-                AccountType = AccountType.Credit,
+                Account = new Account(100),
+                DepositAmount = 500,
+                WithdrawAmount = 400
             },
 
             new AccountTestCase()
             {
-                Balance = -0.01m,
-                AccountType = AccountType.Deposit,
+                Account = new Account(),
+                DepositAmount = 300
             },
 
             new AccountTestCase()
             {
-                Balance = 101,
-                AccountType = AccountType.Debit,
+                Account = new Account(500),
+                WithdrawAmount = 500
+            },
+
+            new AccountTestCase()
+            {
+                Account = new Account(),
+                WithdrawAmount = -100,
+                ExpectedArgumentException = true
+            },
+
+            new AccountTestCase()
+            {
+                Account = new Account(),
+                DepositAmount = -50,
+                ExpectedArgumentException = true
+            },
+
+            new AccountTestCase()
+            {
+                Account = new Account(100),
+                WithdrawAmount = 200,
+                ExpectedArgumentException = true
             }
-
         };
 
         public void TestProcess(AccountTestCase testCase)
@@ -32,24 +53,24 @@
             
             bool result = true;
 
-            var account1 = new Account();
-            if (account1.Balance != default(decimal)) result = false;
-            if (account1.AccountType != default(AccountType)) result = false;
+            var balance = testCase.Account.Balance;
 
-            var account2 = new Account(testCase.Balance);
-            if (account2.Balance != testCase.Balance) result = false;
-            if (account2.AccountType != default(AccountType)) result = false;
-            if (account1.Number == account2.Number) result = false;
-
-            var account3 = new Account(testCase.AccountType);
-            if (account3.Balance != default(decimal)) result = false;
-            if (account3.AccountType != testCase.AccountType) result = false;
-            if (account2.Number == account3.Number) result = false;
-
-            var account4 = new Account(testCase.Balance, testCase.AccountType);
-            if (account4.Balance != testCase.Balance) result = false;
-            if (account4.AccountType != testCase.AccountType) result = false;
-            if (account3.Number == account4.Number) result = false;
+            try
+            {
+                testCase.Account.Deposit(testCase.DepositAmount);
+                if (testCase.Account.Balance != balance + testCase.DepositAmount) result = false;
+                testCase.Account.Withdraw(testCase.WithdrawAmount);
+                if (testCase.Account.Balance != 
+                    balance + testCase.DepositAmount - testCase.WithdrawAmount) result = false;
+            }
+            catch (ArgumentException)
+            {
+                if (!testCase.ExpectedArgumentException) result = false;
+            }
+            catch
+            {
+                result = false;
+            }
 
             Console.WriteLine("\nRESULT: " + (result ? "VALID TEST" : "INVALID TEST") + '\n');
         }

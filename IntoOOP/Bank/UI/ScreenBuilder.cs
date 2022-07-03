@@ -9,6 +9,12 @@
 public delegate UIScreen BuildAccountScreenDelegate(Account account, UIButton button);
 
 /// <summary>
+/// Делегат методов операций со счетом.
+/// </summary>
+/// <param name="amount">Колличество средств в операции.</param>
+public delegate void AccountOperatinDelegate(decimal amount);
+
+/// <summary>
 /// Класс строителя экранов пользовательского интерфейса.
 /// </summary>
 public class ScreenBuilder
@@ -152,6 +158,65 @@ public class ScreenBuilder
     }
 
     /// <summary>
+    /// Кнопка открытия экрана операции со счетом.
+    /// </summary>
+    /// <param name="screen">Экран операции.</param>
+    /// <param name="account">Счет.</param>
+    /// <param name="label">Информация об операции.</param>
+    /// <returns>Текущий экземпляр класса строителя.</returns>
+    public ScreenBuilder AddOperationButton(UIScreen screen, Account account, string label)
+    {
+        _screen.Add(GetButtonWithIndent(label).SetOnClick(delegate () 
+        {
+            screen.Label.SetText(account.DisplayBalance);
+            screen.Message.SetText(string.Empty);
+            return screen; 
+        }));
+        return this;
+    }
+
+    /// <summary>
+    /// Кнопка для запроса выполнения рперации со счетом.
+    /// </summary>
+    /// <param name="account">Счет.</param>
+    /// <param name="buttonLabel">Название кнопки.</param>
+    /// <param name="inputField">Поле для считывания суммы операции.</param>
+    /// <param name="accountOperation">Метод, выполняющий операцию.</param>
+    /// <param name="accountScreen">Следующий экран.</param>
+    /// <param name="accountButton">Кнопка счета.</param>
+    /// <returns>Текущий экземпляр класса строителя.</returns>
+    public ScreenBuilder AddOperationButton(Account account, string buttonLabel, UIInputField inputField, AccountOperatinDelegate accountOperation, UIScreen accountScreen, UIButton accountButton)
+    {
+        _screen.Add(GetLineButton(buttonLabel).SetOnClick(delegate ()
+        {
+            try
+            {
+                accountOperation(inputField.Value);
+                accountButton.Label.SetText(account.DisplayBalance);
+                accountScreen.Label.SetText(account.DisplayBalance);
+                return accountScreen;
+            }
+            catch (ArgumentException e)
+            {
+                _screen.Message.SetText(e.Message);
+                return _screen;
+            }
+        }));
+        return this;
+    }
+
+    /// <summary>
+    /// Создание поля ввода суммы оперции.
+    /// </summary>
+    /// <returns>Новое поле ввода.</returns>
+    public UIInputField AddAmountField()
+    {
+        var inputField = GetInputField("Укажите сумму");
+        _screen.Add(inputField);
+        return inputField;
+    }
+
+    /// <summary>
     /// Добавление кнопки выхода из приложения.
     /// </summary>
     /// <returns>Текущий экземпляр класса строителя.</returns>
@@ -214,4 +279,11 @@ public class ScreenBuilder
     /// <returns>Новая кнопка типа счета.</returns>
     private static UIButton GetAccountTypeButton(AccountType type) =>
         new UIButton(GetText(Account.GetDisplayAccountType(type)), 4);
+
+    /// <summary>
+    /// Создание поля ввода.
+    /// </summary>
+    /// <param name="text">Текст перед полем.</param>
+    /// <returns>Поле ввода.</returns>
+    private static UIInputField GetInputField(string text) => new UIInputField(GetText(text), 1);
 }

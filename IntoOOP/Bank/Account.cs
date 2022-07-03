@@ -80,6 +80,38 @@ public class Account
     private void InitNumber() => _number = ++_lastNumber;
 
     /// <summary>
+    /// Внесение средств на счет.
+    /// </summary>
+    /// <param name="amount">Колличество вносимых средств.</param>
+    /// <exception cref="ArgumentException">Возбуждается, если сумма внесения меньше 0.</exception>
+    public void Deposit(decimal amount)
+    {
+        if (amount < 0)
+            throw new ArgumentException("Сумма указана некорректно.");
+
+        _balance += amount;
+    }
+
+    /// <summary>
+    /// Снятие средств со счета.
+    /// </summary>
+    /// <param name="amount">Колличество снимаемых средств.</param>
+    /// <exception cref="ArgumentException">Возбуждается при недостатке средств или если
+    /// сумма снятия меньше 0.</exception>
+    public void Withdraw(decimal amount)
+    {
+        if (amount == 0) return;
+
+        if (amount < 0)
+            throw new ArgumentException("Сумма указана некорректно.");
+
+        if (amount > _balance)
+            throw new ArgumentException("Недостаточно средств на счете.");
+
+        _balance -= amount;
+    }
+
+    /// <summary>
     /// Получение названия типа счета.
     /// </summary>
     /// <param name="accountType">Тип счета.</param>
