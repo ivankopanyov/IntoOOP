@@ -13,7 +13,7 @@ public class UIText
     /// <summary>
     /// Разделитель строк.
     /// </summary>
-    private char _separetor = ' ';
+    private char _separator = ' ';
 
     /// <summary>
     /// Колличество элементов.
@@ -24,6 +24,11 @@ public class UIText
     /// Колличество символов всех элементов.
     /// </summary>
     public int Length { get; private set; }
+
+    /// <summary>
+    /// Массив элементов текста.
+    /// </summary>
+    public (string text, ConsoleColor color)[] Texts => _textList.ToArray();
 
     /// <summary>
     /// Добавление нового элемента стандартного цвета в конец списка.
@@ -74,6 +79,27 @@ public class UIText
     }
 
     /// <summary>
+    /// Изменение цвета текста последнего элемента.
+    /// </summary>
+    /// <param name="color">Новый цвет.</param>
+    /// <returns>Экземпляр класса текста.</returns>
+    public UIText SetColor(ConsoleColor color) => SetColor(color, _textList.Count - 1);
+
+    /// <summary>
+    /// Изменение цвета текста элемента по индексу.
+    /// </summary>
+    /// <param name="color">Новый цвет.</param>
+    /// <param name="index">Индекс изменяемого элемента.</param>
+    /// <returns>Экземпляр класса текста.</returns>
+    public UIText SetColor(ConsoleColor color, int index)
+    {
+        if (index < 0 || index >= _textList.Count) return this;
+        var text = _textList[index].text;
+        _textList[index] = (text, color);
+        return this;
+    }
+
+    /// <summary>
     /// Вывод текста в консоль.
     /// </summary>
     public void Print()
@@ -90,7 +116,7 @@ public class UIText
             Console.Write(text.text);
             Console.ForegroundColor = temp;
             if (counter < _textList.Count - 1)
-                Console.Write(_separetor);
+                Console.Write(_separator);
         }
     }
 }

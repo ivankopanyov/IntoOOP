@@ -13,7 +13,7 @@ public class UIInputField : UIScreenItem
     /// <summary>
     /// Позиция начала ввода.
     /// </summary>
-    private (int x, int y) _cursorPosition;
+    private Point _cursorPos;
 
     /// <summary>
     /// Текстовое значение ввода.
@@ -23,7 +23,7 @@ public class UIInputField : UIScreenItem
     /// <summary>
     /// Высота поля ввода.
     /// </summary>
-    public override int Height => PaddingTop + 3;
+    public override int Height => Padding.Y + 3;
 
     /// <summary>
     /// Числовое значение ввода.
@@ -39,10 +39,9 @@ public class UIInputField : UIScreenItem
     /// Конструктор класса поля ввода.
     /// </summary>
     /// <param name="label">Текст, выводимый перед полем ввода.</param>
-    /// <param name="paddingLeft"></param>
-    /// <param name="paddingTop"></param>
-    public UIInputField(UIText label, int paddingLeft = 0, int paddingTop = 0) :
-        base(label, paddingLeft, paddingTop) => _cursorPosition.x = Label.Length + PaddingLeft + 3;
+    /// <param name="padding">Отступы.</param>
+    public UIInputField(UIText label, Point padding) : base(label, padding) => 
+        _cursorPos = new Point(Label.Length + Padding.X + 3, _cursorPos.Y);
 
     /// <summary>
     /// Метод вывода поля ввода в консоль.
@@ -55,19 +54,19 @@ public class UIInputField : UIScreenItem
         Focus = focus;
         var border = new string('─', LIMIT + 1);
 
-        Console.CursorLeft = PaddingLeft + Label.Length + 2;
+        Console.CursorLeft = Padding.X + Label.Length + 2;
         Console.WriteLine('┌' + border + '┐');
 
-        Console.CursorLeft = PaddingLeft;
+        Console.CursorLeft = Padding.X;
         Label.Print();
         Console.Write(": │" + _value);
         Console.CursorLeft += LIMIT + 1 - _value.Length;
         Console.WriteLine('│');
 
-        Console.CursorLeft = PaddingLeft + Label.Length + 2;
+        Console.CursorLeft = Padding.X + Label.Length + 2;
         Console.WriteLine('└' + border + '┘');
 
-        _cursorPosition.y = LineNumber + 1;
+        _cursorPos = new Point(_cursorPos.X, Position.Y + 1);
 
         if (Focus) return Read();
         return default;
@@ -86,8 +85,7 @@ public class UIInputField : UIScreenItem
     private ConsoleKey Read()
     {
         Console.CursorVisible = true;
-        Console.CursorLeft = _cursorPosition.x + _value.Length;
-        Console.CursorTop = _cursorPosition.y;
+        Console.SetCursorPosition(_cursorPos.X + _value.Length, _cursorPos.Y);
 
         ConsoleKeyInfo key;
 

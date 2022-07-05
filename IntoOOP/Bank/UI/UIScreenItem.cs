@@ -6,44 +6,24 @@
 public abstract class UIScreenItem
 {
     /// <summary>
-    /// Находится ли элемент в фокусе.
-    /// </summary>
-    private bool _focus;
-
-    /// <summary>
-    /// Внутренний отступ слева.
-    /// </summary>
-    private int _paddingLeft;
-
-    /// <summary>
-    /// Внутренний отступ сверху.
-    /// </summary>
-    private int _paddingTop;
-
-    /// <summary>
     /// Текст, выводимый в элементе экрана.
     /// </summary>
     public UIText Label { get; private set; }
 
     /// <summary>
-    /// Позиция строки для вывода эемента экрана.
-    /// </summary>
-    public int LineNumber { get; set; }
-
-    /// <summary>
     /// Находится ли элемент в фокусе.
     /// </summary>
-    public bool Focus { get => _focus; protected set => _focus = value; }
+    public bool Focus { get; protected set; }
 
     /// <summary>
-    /// Внутренний отступ слева.
+    /// Внутренний отступ.
     /// </summary>
-    protected int PaddingLeft => _paddingLeft;
+    public Point Padding { get; set; }
 
     /// <summary>
-    /// Внутренний отступ сверху.
+    /// Позиция на экране.
     /// </summary>
-    protected int PaddingTop => _paddingTop;
+    public Point Position { get; set; }
 
     /// <summary>
     /// Ширина элемента экрана.
@@ -59,13 +39,11 @@ public abstract class UIScreenItem
     /// Конструктор класса элемента экрана.
     /// </summary>
     /// <param name="label">Текст, выводимый в элементе экрана.</param>
-    /// <param name="paddingLeft">Внутренний отступ сверху.</param>
-    /// <param name="paddingTop">Внутренний отступ слева.</param>
-    public UIScreenItem(UIText label, int paddingLeft, int paddingTop)
+    /// <param name="padding">Внутренний отступ.</param>
+    public UIScreenItem(UIText label, Point padding)
     {
         Label = label;
-        _paddingLeft = paddingLeft;
-        _paddingTop = paddingTop;
+        Padding = padding;
     }
 
     /// <summary>
@@ -86,12 +64,11 @@ public abstract class UIScreenItem
     /// </summary>
     protected void Clear()
     {
-        Console.CursorLeft = 0;
-        Console.CursorTop = LineNumber;
+        Console.SetCursorPosition(0, Position.Y);
         var clear = new string(' ', Console.WindowWidth);
         for (int i = 0; i < Height; i++) Console.WriteLine(clear);
-        Console.CursorTop = LineNumber;
-        for (int i = 0; i < PaddingTop; i++) Console.WriteLine();
-        Console.CursorLeft = PaddingLeft;
+        Console.CursorTop = Position.Y;
+        for (int i = 0; i < Padding.Y; i++) Console.WriteLine();
+        Console.CursorLeft = Padding.X;
     }
 }

@@ -1,12 +1,6 @@
 ﻿namespace IntoOOP.Bank.UI;
 
 /// <summary>
-/// Делегат метода, выполняемого при нажатии на кнопку.
-/// </summary>
-/// <returns>Возвращает следующий экран.</returns>
-public delegate UIScreen OnClick();
-
-/// <summary>
 /// Класс экрана.
 /// </summary>
 public class UIScreen
@@ -14,7 +8,7 @@ public class UIScreen
     /// <summary>
     /// Экран для выхода из приложения.
     /// </summary>
-    private static UIScreen _exit = new UIScreen(null, null);
+    private static UIScreen _exit = new UIScreen();
 
     /// <summary>
     /// Экран для выхода из приложения.
@@ -22,9 +16,19 @@ public class UIScreen
     public static UIScreen Exit => _exit;
 
     /// <summary>
+    /// Заголовок приложения.
+    /// </summary>
+    private UIText _header = new UIText().Add(string.Empty);
+
+    /// <summary>
+    /// Информация об экране.
+    /// </summary>
+    private UIText _label = new UIText().Add(string.Empty);
+
+    /// <summary>
     /// Сообщение об ошибке.
     /// </summary>
-    private UIText _message = new UIText().Add(string.Empty, ConsoleColor.Red);
+    private UIText _message = new UIText().Add(string.Empty);
 
     /// <summary>
     /// Дополнительное сообщение.
@@ -32,24 +36,40 @@ public class UIScreen
     private UIText _postMessage = new UIText().Add(string.Empty);
 
     /// <summary>
-    /// Заголовок приложения.
+    /// Информация об экране.
     /// </summary>
-    private UIText _header;
+    public UIText Header 
+    {
+        get => _header;
+        set => _header = value == null ? new UIText().Add(string.Empty) : value;
+    }
 
     /// <summary>
     /// Информация об экране.
     /// </summary>
-    public UIText Label { get; private set; }
+    public UIText Label
+    {
+        get => _label;
+        set => _label = value == null ? new UIText().Add(string.Empty) : value;
+    }
 
     /// <summary>
     /// Сообщение об ошибке.
     /// </summary>
-    public UIText Message => _message;
+    public UIText Message
+    {
+        get => _message;
+        set => _message = value == null ? new UIText().Add(string.Empty) : value;
+    }
 
     /// <summary>
     /// Дополнительное сообщение.
     /// </summary>
-    public UIText PostMessage => _postMessage;
+    public UIText PostMessage
+    {
+        get => _postMessage;
+        set => _postMessage = value == null ? new UIText().Add(string.Empty) : value;
+    }
 
     /// <summary>
     /// Список элементов экрана.
@@ -65,18 +85,7 @@ public class UIScreen
     /// Общая высота заголовков экрана.
     /// </summary>
     private int HeaderHeight => (_header.Length > 0 ? 2 : 0) + (_message.Length > 0 ? 2 : 0) + 
-        (Label.Length > 0 ? 2 : 0) + (_postMessage.Length > 0 ? 2 : 0);
-
-    /// <summary>
-    /// Конструктор класса экрана.
-    /// </summary>
-    /// <param name="label">Информация об экране.</param>
-    /// <param name="header">Заголовок приложения.</param>
-    public UIScreen(UIText label, UIText header)
-    {
-        Label = label;
-        _header = header;
-    }
+        (_label.Length > 0 ? 2 : 0) + (_postMessage.Length > 0 ? 2 : 0);
 
     /// <summary>
     /// Метод добавления элемента на экран.
@@ -85,10 +94,10 @@ public class UIScreen
     /// <param name="index">Индекс куда будет добавлен элемент.</param>
     public void Add(UIScreenItem item, int index = -1)
     {
-        if (index < 0 || index >= _items.Count())
+        if (index < 0 || index >= _items.Count)
         {
             _items.Add(item);
-            index = _items.Count() - 1;
+            index = _items.Count - 1;
         }
         else _items.Insert(index, item);
         Update(index);
@@ -98,11 +107,14 @@ public class UIScreen
     /// Удаление элемента экрана.
     /// </summary>
     /// <param name="item">Удаляемый элемент.</param>
-    public void Remove(UIScreenItem item)
+    public void Remove(UIText label)
     {
-        var index = _items.IndexOf(item);
-        _items.RemoveAt(index);
-        Update(index);
+        var index = _items.FindIndex(i => i.Label == label);
+        if (index != -1)
+        {
+            _items.RemoveAt(index);
+            Update(index);
+        }
     }
 
     /// <summary>
@@ -113,22 +125,28 @@ public class UIScreen
         Update(0);
         Console.Clear();
 
-        Console.CursorLeft = 1;
-        Console.CursorTop = 0;
-        _header.Print();
+        Console.SetCursorPosition(1, 0);
 
-        Console.CursorLeft = 1;
-        Console.CursorTop += 2;
-        _message.Print();
+        if (_header.Length > 0)
+        {
+            _header.Print();
+            Console.SetCursorPosition(1, Console.CursorTop += 2);
+        }
 
-        Console.CursorLeft = 1;
         if (_message.Length > 0)
-            Console.CursorTop += 2;
-        Label.Print();
+        {
+            _message.Print();
+            Console.SetCursorPosition(1, Console.CursorTop += 2);
+        }
 
-        Console.CursorLeft = 5;
-        Console.CursorTop += 2;
-        _postMessage.Print();
+        if (_label.Length > 0)
+        {
+            _label.Print();
+            Console.SetCursorPosition(5, Console.CursorTop += 2);
+        }
+
+        if (_postMessage.Length > 0)
+            _postMessage.Print();
 
         foreach (var item in _items)
             item.Draw(false);
@@ -159,8 +177,8 @@ public class UIScreen
 
             _items[focusIndex].Draw(false);
             if (key == ConsoleKey.DownArrow)
-                focusIndex = focusIndex == _items.Count() - 1 ? 0 : ++focusIndex;
-            else focusIndex = focusIndex == 0 ? _items.Count() - 1 : --focusIndex;
+                focusIndex = focusIndex == _items.Count - 1 ? 0 : ++focusIndex;
+            else focusIndex = focusIndex == 0 ? _items.Count - 1 : --focusIndex;
             key = _items[focusIndex].Draw(true);
         }
     }
@@ -171,7 +189,10 @@ public class UIScreen
     /// <param name="index">Индекс элмента, с которого начинается обновление.</param>
     private void Update(int index)
     {
-        for (int i = index; i < _items.Count(); i++)
-            _items[i].LineNumber = index == 0 && i == 0 ? HeaderHeight : _items[i - 1].LineNumber + _items[i - 1].Height;
+        for (int i = index; i < _items.Count; i++)
+            if (index == 0 && i == 0)
+                _items[i].Position = new Point(_items[i].Position.X, HeaderHeight);
+            else
+                _items[i].Position = new Point(0, _items[i - 1].Position.Y + _items[i - 1].Height);
     }
 }

@@ -13,7 +13,17 @@ public class Account
     /// <summary>
     /// Номер счета.
     /// </summary>
-    private int _number;
+    public readonly int number;
+
+    /// <summary>
+    /// Тип счета.
+    /// </summary>
+    public readonly AccountType accountType;
+
+    /// <summary>
+    /// Название типа счета.
+    /// </summary>
+    public readonly string displayAccountType;
 
     /// <summary>
     /// Баланс счета.
@@ -21,29 +31,9 @@ public class Account
     private decimal _balance;
 
     /// <summary>
-    /// Тип счета.
-    /// </summary>
-    private AccountType _accountType;
-
-    /// <summary>
-    /// Номер счета.
-    /// </summary>
-    public int Number => _number;
-
-    /// <summary>
     /// Текущий баланс счета.
     /// </summary>
     public decimal Balance => _balance;
-
-    /// <summary>
-    /// Тип счета.
-    /// </summary>
-    public AccountType AccountType => _accountType;
-
-    /// <summary>
-    /// Название типа счета.
-    /// </summary>
-    public string DisplayAccountType => GetDisplayAccountType(_accountType);
 
     /// <summary>
     /// Строка с балансом счета.
@@ -53,7 +43,11 @@ public class Account
     /// <summary>
     /// Конструктор класса банковского счета.
     /// </summary>
-    public Account() => InitNumber();
+    public Account()
+    {
+        number = ++_lastNumber;
+        displayAccountType = GetDisplayAccountType(accountType);
+    }
 
     /// <summary>
     /// Конструктор класса банковского счета.
@@ -65,19 +59,15 @@ public class Account
     /// Конструктор класса банковского счета.
     /// </summary>
     /// <param name="accountType">Устанавливает тип счета.</param>
-    public Account(AccountType accountType) : this() => _accountType = accountType;
+    public Account(AccountType accountType) : this() => this.accountType = accountType;
 
     /// <summary>
     /// Конструктор класса банковского счета.
     /// </summary>
     /// <param name="_balance">Устанавливает баланс счета.</param>
     /// <param name="accountType">Устанавливает тип счета.</param>
-    public Account(decimal _balance, AccountType accountType) : this(_balance) => _accountType = accountType;
-
-    /// <summary>
-    /// Устанавливает номер счета, прибавляя 1 к номеру последнего созданного счета.
-    /// </summary>
-    private void InitNumber() => _number = ++_lastNumber;
+    public Account(decimal _balance, AccountType accountType) : this(_balance) => 
+        this.accountType = accountType;
 
     /// <summary>
     /// Внесение средств на счет.
@@ -128,5 +118,5 @@ public class Account
     /// Приведение экземпляра класса счета к типу строки.
     /// </summary>
     /// <returns>Строка счета.</returns>
-    public override string ToString() => $"{GetDisplayAccountType(_accountType)} счет №{_number} ";
+    public override string ToString() => $"{GetDisplayAccountType(accountType)} счет №{number} ";
 }

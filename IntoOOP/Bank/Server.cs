@@ -54,10 +54,10 @@ public static class Server
     /// <exception cref="Exception">Возбуждается при несоответствующем балансе счета.</exception>
     public static void CloseAccount(Account account)
     {
-        if (account.AccountType == AccountType.Credit && account.Balance != CREDIT_AMOUNT)
+        if (account.accountType == AccountType.Credit && account.Balance != CREDIT_AMOUNT)
             throw new Exception($"На балансе счета должно быть {CREDIT_AMOUNT:f2}");
 
-        if (account.AccountType != AccountType.Credit && account.Balance != 0)
+        if (account.accountType != AccountType.Credit && account.Balance != 0)
             throw new Exception("На балансе счета должно быть 0.00");
 
         _accounts.Remove(account);
