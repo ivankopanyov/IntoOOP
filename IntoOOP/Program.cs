@@ -1,35 +1,13 @@
-﻿using IntoOOP.Bank.UI;
-using IntoOOP.Bank.Screen;
+﻿using IntoOOP.Text;
+using IntoOOP.Text.Tests;
 
-class Program
+var test = new ReverseTest();
+test.DoProcess();
+
+while (true)
 {
-    /// <summary>
-    /// Точка входа в приложение.
-    /// </summary>
-    /// <param name="args"></param>
-    static void Main(string[] args)
-    {
-
-#if DEBUG
-
-        var test = new IntoOOP.Bank.Tests.AccountTest();
-        test.DoProcess();
-        Console.Write("\nДля старта приложения нажмите любую клавишу...");
-        Console.ReadKey(true);
-        Console.SetCursorPosition(0, 0);
-        Console.Clear();
-
-#endif
-
-        Console.CursorVisible = false;
-
-        var screen = new MainScreenDirector().Build();
-
-        while (true)
-        {
-            screen.Show();
-            screen = screen.Control();
-            if (screen == UIScreen.Exit) return;
-        }
-    }
+    Console.Write("Введите строку для разворота: ");
+    var input = Console.ReadLine();
+    if (string.IsNullOrEmpty(input)) return;
+    Console.WriteLine($"Результат: {TextHandler.Reverse(input)}\n");
 }
