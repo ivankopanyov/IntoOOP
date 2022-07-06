@@ -219,6 +219,49 @@ public class ScreenBuilder
     }
 
     /// <summary>
+    /// Кнопка открытия экрана перевода.
+    /// </summary>
+    /// <param name="account">Счет.</param>
+    /// <param name="accountScreen">Экран счета.</param>
+    public void AddOpenTransferScreenButton(Account account, UIScreen accountScreen)
+    {
+        var button = GetButtonWithIndent("Перевести");
+        button.OnClick += delegate ()
+        {
+            accountScreen.Message.SetText(string.Empty);
+            var screen = new TransferScreenDirector(account, accountScreen).Build();
+            SetAmount(account, screen.Label);
+            return screen;
+        };
+        _screen.Add(button);
+    }
+
+    /// <summary>
+    /// Кнопки счетов для перевода средств.
+    /// </summary>
+    /// <param name="account">Счет.</param>
+    /// <param name="accountScreen">Экран счета.</param>
+    /// <param name="inputField">Поле ввода суммы.</param>
+    public void AddTransferButtons(Account account, UIScreen accountScreen, UIInputField inputField)
+    {
+        AddAccountsButtons(delegate (Account destAccount, UIButton button)
+        {
+            try
+            {
+                account.Transfer(destAccount, inputField.Value);
+                SetAmount(account, accountScreen.Label);
+                SetAmount(destAccount, button.Label);
+                return accountScreen;
+            }
+            catch (ArgumentException ex)
+            {
+                _screen.Message.SetText(ex.Message);
+                return _screen;
+            }
+        }, account);
+    }
+
+    /// <summary>
     /// Создание поля ввода суммы оперции.
     /// </summary>
     public UIInputField AddAmountField()

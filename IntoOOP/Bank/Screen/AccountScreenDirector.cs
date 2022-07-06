@@ -16,6 +16,7 @@ public class AccountScreenDirector : ScreenBuilder
     {
         AddOperationButton(account, _screen, "Внести на счет", account.Deposit);
         AddOperationButton(account, _screen, "Снять со счета", account.Withdraw);
+        AddOpenTransferScreenButton(account, _screen);
         AddCloseAccountButton(account, mainScreen);
         AddBackButton(mainScreen, new Point(0, 1));
     }

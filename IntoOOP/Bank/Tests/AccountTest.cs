@@ -6,69 +6,122 @@
         {
             new AccountTestCase()
             {
-                Account = new Account(100),
+                Account = new Account(),
+                DestAccount = new Account(),
                 DepositAmount = 500,
-                WithdrawAmount = 400
-            },
-
-            new AccountTestCase()
-            {
-                Account = new Account(),
-                DepositAmount = 300
-            },
-
-            new AccountTestCase()
-            {
-                Account = new Account(500),
-                WithdrawAmount = 500
-            },
-
-            new AccountTestCase()
-            {
-                Account = new Account(),
-                WithdrawAmount = -100,
+                WithdrawAmount = 400,
+                TransferAmount = 100,
                 ExpectedArgumentException = true
             },
-
             new AccountTestCase()
             {
                 Account = new Account(),
-                DepositAmount = -50,
+                DestAccount = new Account(),
+                DepositAmount = -100,
                 ExpectedArgumentException = true
             },
-
             new AccountTestCase()
             {
-                Account = new Account(100),
-                WithdrawAmount = 200,
+                Account = new Account(),
+                DestAccount = new Account(),
+                WithdrawAmount = 100,
+                ExpectedArgumentException = true
+            },
+            new AccountTestCase()
+            {
+                Account = new Account(),
+                DestAccount = new Account(),
+                TransferAmount = 100,
                 ExpectedArgumentException = true
             }
         };
 
         public void TestProcess(AccountTestCase testCase)
         {
+            Console.WriteLine("------------ NEW TEST --------------\n");
+
+            if (testCase.Account == null)
+            {
+                Console.WriteLine("Account is null\n");
+                return;
+            }
+            
+            if (testCase.DestAccount == null)
+            {
+                Console.WriteLine("DestAccount is null");
+                return;
+            }
+
             var properties = typeof(AccountTestCase).GetProperties();
             foreach (var property in properties)
-                Console.WriteLine(property.Name + " = " + property.GetValue(testCase));
-            
+            {
+                Console.Write(property.Name + " = " + property.GetValue(testCase));
+                if (property.PropertyType == typeof(Account) && property.GetValue(testCase) != null)
+                    Console.Write(", Баланс = " + ((Account)property.GetValue(testCase)).DisplayBalance);
+                Console.WriteLine();
+            }
+            Console.WriteLine('\n');
+
             bool result = true;
 
-            var balance = testCase.Account.Balance;
+            var balanceAccount = testCase.Account.Balance;
+            var balanceDestAccount = testCase.DestAccount.Balance;
 
             try
             {
+                Console.WriteLine($"Account.Deposit({testCase.DepositAmount});");
                 testCase.Account.Deposit(testCase.DepositAmount);
-                if (testCase.Account.Balance != balance + testCase.DepositAmount) result = false;
+                Console.WriteLine($"Account.Balance = {testCase.Account.Balance};");
+                if (testCase.Account.Balance != balanceAccount + testCase.DepositAmount)
+                {
+                    Console.WriteLine("BAD!\n");
+                    result = false;
+                }
+                else Console.WriteLine("OK!\n");
+
+                Console.WriteLine($"Account.Withdraw({testCase.WithdrawAmount});");
                 testCase.Account.Withdraw(testCase.WithdrawAmount);
-                if (testCase.Account.Balance != 
-                    balance + testCase.DepositAmount - testCase.WithdrawAmount) result = false;
+                Console.WriteLine($"Account.Balance = {testCase.Account.Balance};");
+                if (testCase.Account.Balance != balanceAccount + testCase.DepositAmount - testCase.WithdrawAmount)
+                {
+                    Console.WriteLine("BAD!\n");
+                    result = false;
+                }
+                else Console.WriteLine("OK!\n");
+
+                Console.WriteLine($"Account.Transfer(DestAccount, {testCase.TransferAmount});");
+                testCase.Account.Transfer(testCase.DestAccount, testCase.TransferAmount);
+
+                Console.WriteLine($"\nAccount.Balance = {testCase.Account.Balance};");
+                if (testCase.Account.Balance != balanceAccount + testCase.DepositAmount - testCase.WithdrawAmount - testCase.TransferAmount)
+                {
+                    Console.WriteLine("BAD!\n");
+                    result = false;
+                }
+                else Console.WriteLine("OK!\n");
+
+                Console.WriteLine($"DestAccount.Balance = {testCase.DestAccount.Balance};");
+                if (testCase.DestAccount.Balance != balanceDestAccount + testCase.TransferAmount)
+                {
+                    Console.WriteLine("BAD!\n");
+                    result = false;
+                }
+                else Console.WriteLine("OK!\n");
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
-                if (!testCase.ExpectedArgumentException) result = false;
+                Console.WriteLine(ex.Message);
+                if (!testCase.ExpectedArgumentException)
+                {
+                    Console.WriteLine("\nBAD!\n");
+                    result = false;
+                }
+                else Console.WriteLine("\nOK!\n");
             }
-            catch
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("\nBAD!\n");
                 result = false;
             }
 

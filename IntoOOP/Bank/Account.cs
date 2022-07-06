@@ -93,12 +93,37 @@ public class Account
         if (amount == 0) return;
 
         if (amount < 0)
-            throw new ArgumentException("Сумма указана некорректно.");
+            throw new ArgumentException("Сумма указана некорректно.", nameof(amount));
 
         if (amount > _balance)
-            throw new ArgumentException("Недостаточно средств на счете.");
+            throw new ArgumentException("Недостаточно средств на счете.", nameof(amount));
 
         _balance -= amount;
+    }
+
+    /// <summary>
+    /// Перевод средств на другой счет.
+    /// </summary>
+    /// <param name="account">Счет для перевода.</param>
+    /// <param name="amount">Колличество средств для пеервода.</param>
+    /// <exception cref="ArgumentNullException">Возбуждается, если переданный счет не инициализирован.</exception>
+    /// <exception cref="ArgumentException">Возбуждается при недостатке средств или если
+    /// сумма перевода меньше 0.</exception>
+    public void Transfer(Account account, decimal amount)
+    {
+        if (account == null)
+            throw new ArgumentNullException("Указанный счет не найден", nameof(account));
+
+        try 
+        {
+            Withdraw(amount);
+        }
+        catch (ArgumentException ex)
+        {
+            throw new ArgumentException(ex.Message, nameof(amount));
+        }
+
+        account.Deposit(amount);
     }
 
     /// <summary>
