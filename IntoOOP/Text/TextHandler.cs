@@ -5,19 +5,39 @@
 /// </summary>
 public static class TextHandler
 {
-    /// <summary>
-    /// Метод разворота строки.
-    /// </summary>
-    /// <param name="source">Строка для разворота.</param>
-    /// <returns>Перевернутая строка.</returns>
-    public static string Reverse(string source)
-    {
-        if (source == null || source.Length < 2)
-            return source;
+	/// <summary>
+	/// Метод разворота строки.
+	/// </summary>
+	/// <param name="str">Строка для разворота.</param>
+	/// <returns>Развернутая строка.</returns>
+	public static string Reverse(string str)
+	{
+		if (string.IsNullOrWhiteSpace(str) || str.Length == 1 || IsPalindrom(str)) return str;
 
-        char[] charArray = source.ToCharArray();
-        Array.Reverse(charArray);
-        return new string(charArray);
+		var strArr = str.ToCharArray();
+
+		for (int i = 0; i < strArr.Length / 2; i++)
+		{
+			var temp = strArr[strArr.Length - i - 1];
+			strArr[strArr.Length - i - 1] = strArr[i];
+			strArr[i] = temp;
+		}
+
+		return new string(strArr);
+	}
+
+	/// <summary>
+	/// Проверка строки на палиндром.
+	/// </summary>
+	/// <param name="str">Строка для проверки.</param>
+	/// <returns>Результат проверки.</returns>
+	private static bool IsPalindrom(in string str)
+	{
+		for (int i = 0; i < str.Length / 2; i++)
+			if (str[i] != str[str.Length - i - 1])
+				return false;
+
+		return true;
 	}
 
 	/// <summary>

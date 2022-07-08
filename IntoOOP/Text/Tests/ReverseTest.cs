@@ -16,6 +16,11 @@ public class ReverseTest
         },
         new ReverseTestCase()
         {
+            Str = "A",
+            ExceptedStr = "A"
+        },
+        new ReverseTestCase()
+        {
             Str = "Lorem ipsum dolor sit amet.",
             ExceptedStr = ".tema tis rolod muspi meroL"
         },
@@ -28,11 +33,11 @@ public class ReverseTest
 
     public void TestProcess(ReverseTestCase testCase)
     {
-        var result = TextHandler.Reverse(testCase.Str);
-        if (result == testCase.ExceptedStr)
-            Console.WriteLine($"{testCase.ExceptedStr} = {result}\nVALID TEST!\n");
-        else
-            Console.WriteLine($"{testCase.ExceptedStr} != {result}\nINVALID TEST!\n");
+        var reverseResult = TextHandler.Reverse(testCase.Str);
+        var testResult = testCase.ExceptedStr == reverseResult;
+
+        Console.WriteLine($"ExceptedStr: {testCase.ExceptedStr}, Result: {reverseResult}\n" + (testResult ? "OK!" : "BAD!"));
+        Console.WriteLine(testResult ? "VALID TEST!\n" : "INVALID TEST!\n");
     }
 
     public void DoProcess()

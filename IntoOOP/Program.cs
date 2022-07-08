@@ -1,19 +1,14 @@
 ﻿using IntoOOP.Text;
+using IntoOOP.Text.Tests;
 
-Console.Write("Укажите путь к файлу с именами и эмейл адресами: ");
-var source = Console.ReadLine();
-Console.Write("Укажите путь к файлу для записи эмейл адресов: ");
-var dest = Console.ReadLine();
-Console.WriteLine();
+var test = new ReverseTest();
+test.DoProcess();
 
-try
+while (true)
 {
-    TextHandler.WriteAllEmails(source, dest);
-    Console.WriteLine("Файл успешно записан.");
+    Console.Write("Введите строку для разворота: ");
+    var input = Console.ReadLine();
+    if (string.IsNullOrEmpty(input)) return;
+    var result = TextHandler.Reverse(input);
+    Console.WriteLine($"Результат: {result}\n");
 }
-catch (Exception ex)
-{
-    Console.WriteLine(ex.Message);
-}
-
-Console.ReadKey(true);
