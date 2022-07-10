@@ -3,17 +3,11 @@
 /// <summary>Класс, описывающий здание.</summary>
 public class Build
 {
-    /// <summary>Значение высоты здания по умолчанию.</summary>
-    private const double DEFAULT_HEIGHT = 1;
-
-    /// <summary>Идентификатор последнего созданного экземпляра здания.</summary>
-    private static int _LastId;
-
-    /// <summary>Уникальный идентификатор здания.</summary>
-    private int _Id;
+    /// <summary>Идентификатор здания.</summary>
+    private readonly int _Id;
 
     /// <summary>Высота здания.</summary>
-    private double _Height = DEFAULT_HEIGHT;
+    private double _Height;
 
     /// <summary>Колличество этажей в здании.</summary>
     private int _FloorsCount = 1;
@@ -24,7 +18,7 @@ public class Build
     /// <summary>Колличество квартир в здании.</summary>
     private int _ApartmentsCount = 1;
 
-    /// <summary>Уникальный идентификатор здания.</summary>
+    /// <summary>Идентификатор здания.</summary>
     public int Id => _Id;
 
     /// <summary>Высота здания.</summary>
@@ -81,34 +75,42 @@ public class Build
     public double ApartmentsCountInFloor => (double)_ApartmentsCount / _FloorsCount;
 
     /// <summary>Инициализация объекта здания.</summary>
+    /// <param name="id">Идентификатор здания.</param>
     /// <param name="height">Высота здания.</param>
-    public Build(double height = DEFAULT_HEIGHT)
+    internal Build(int id, double height)
     {
-        _Id = ++_LastId;
+        _Id = id;
         Height = height;
     }
 
-    /// <summary>>Инициализация объекта здания.</summary>
+    /// <summary>Инициализация объекта здания.</summary>
+    /// <param name="id">Идентификатор здания.</param>
     /// <param name="apartmentsCount">Колличество квартир в зданиии.</param>
     /// <param name="height">Высота здания.</param>
-    public Build(int apartmentsCount, double height = DEFAULT_HEIGHT) : this(height) => ApartmentsCount = apartmentsCount;
+    internal Build(int id, int apartmentsCount, double height) : this(id, height) => ApartmentsCount = apartmentsCount;
 
-    /// <summary>>Инициализация объекта здания.</summary>
+    /// <summary>Инициализация объекта здания.</summary>
+    /// <param name="id">Идентификатор здания.</param>
     /// <param name="apartmentsCount">Колличество квартир в зданиии.</param>
     /// <param name="floorsCount">Колличество этажей в здании.</param>
     /// <param name="height">Высота здания.</param>
-    public Build(int apartmentsCount, int floorsCount, double height = DEFAULT_HEIGHT) : this(apartmentsCount, height)
+    internal Build(int id, int apartmentsCount, int floorsCount, double height) : this(id, apartmentsCount, height)
         => FloorsCount = floorsCount;
 
     /// <summary>Инициализация объекта здания.</summary>
+    /// <param name="id">Идентификатор здания.</param>
     /// <param name="apartmentsCount">Колличество квартир в зданиии.</param>
     /// <param name="floorsCount">Колличество этажей в здании.</param>
     /// <param name="entrancesCount">Колличество подъездо в здании.</param>
     /// <param name="height">Высота здания.</param>
-    public Build(int apartmentsCount, int floorsCount, int entrancesCount, double height = DEFAULT_HEIGHT) :
-        this(apartmentsCount, floorsCount, height) => EntrancesCount = entrancesCount;
+    internal Build(int id, int apartmentsCount, int floorsCount, int entrancesCount, double height) :
+        this(id, apartmentsCount, floorsCount, height)
+    {
+        EntrancesCount = entrancesCount;
+        ApartmentsCount = FloorsCount * EntrancesCount;
+    }
 
     /// <summary>Переопределение метода приведения объекта класса здания к типу string.</summary>
-    /// <returns>Строка идентификатором объекта.</returns>
+    /// <returns>Строка c идентификатором объекта.</returns>
     public override string ToString() => "Здание №" + _Id;
 }
