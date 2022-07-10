@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Builds\IntoOOP.Builds.csproj" />
+    <ProjectReference Include="..\IntoOOP.UI\IntoOOP.UI.csproj" />
   </ItemGroup>
 
 </Project>

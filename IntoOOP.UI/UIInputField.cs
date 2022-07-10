@@ -132,7 +132,7 @@ public class UIInputField : UIScreenItem
     private void ChangeValueEvent()
     {
         Console.CursorVisible = false;
-        var cursorPos = new UIPoint(Console.CursorLeft, Console.CursorTop);
+        var cursorPos = new Point(Console.CursorLeft, Console.CursorTop);
         ChangeValue?.Invoke();
         Console.SetCursorPosition(cursorPos.X, cursorPos.Y);
         Console.CursorVisible = true;

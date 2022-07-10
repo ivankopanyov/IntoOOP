@@ -35,10 +35,10 @@ public abstract class UIScreenItem
     public bool Focus { get; protected set; }
 
     /// <summary>Внутренний отступ.</summary>
-    public UIPoint Padding { get; set; }
+    public Point Padding { get; set; }
 
     /// <summary>Позиция на экране.</summary>
-    internal UIPoint Position { get; set; }
+    internal Point Position { get; set; }
 
     /// <summary>Цвет текста элемента экрана.</summary>
     public ConsoleColor? LabelColor { get; set; } = null;

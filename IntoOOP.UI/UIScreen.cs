@@ -6,13 +6,13 @@ namespace IntoOOP.UI;
 public class UIScreen : IEnumerable<UIScreenItem>
 {
     /// <summary>Экран для выхода из приложения.</summary>
-    private static readonly UIScreen _Exit = new UIScreen(new UIPoint(1, 1));
+    private static readonly UIScreen _Exit = new UIScreen(new Point(1, 1));
 
     /// <summary>Экран для выхода из приложения.</summary>
     public static UIScreen Exit => _Exit;
 
     /// <summary>Размер экрана.</summary>
-    public UIPoint Size { get; }
+    public Point Size { get; }
 
     /// <summary>Колличество элемментов экрана.</summary>
     public int Count { get; private set; }
@@ -33,7 +33,7 @@ public class UIScreen : IEnumerable<UIScreenItem>
     /// <param name="size">Размер экрана.</param>
     /// <exception cref="ArgumentOutOfRangeException">Возбуждается, если переданное значение экрана 
     /// содержит координату меньше или равную нулю.</exception>
-    public UIScreen(UIPoint size)
+    public UIScreen(Point size)
     {
         if (size.X <= 0 || size.Y <= 0)
             throw new ArgumentOutOfRangeException("Размер экрана должен быть больше нуля.", nameof(size));
@@ -253,7 +253,7 @@ public class UIScreen : IEnumerable<UIScreenItem>
     private void Update()
     {
         foreach (var item in this)
-            item.Position = item == First ? new UIPoint(item.Position.X, 0) : new UIPoint(item.Position.X, item.Previous!.Position.Y + item.Previous.Height);
+            item.Position = item == First ? new Point(item.Position.X, 0) : new Point(item.Position.X, item.Previous!.Position.Y + item.Previous.Height);
     }
 
     #region IEnumerable

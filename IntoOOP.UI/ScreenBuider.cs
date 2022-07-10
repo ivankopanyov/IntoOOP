@@ -8,7 +8,7 @@ public class ScreenBuider
 
     /// <summary>Инициализация класса строителя экрана.</summary>
     /// <param name="size">Размер экрана.</param>
-    public ScreenBuider(UIPoint size) => _Screen = new UIScreen(size);
+    public ScreenBuider(Point size) => _Screen = new UIScreen(size);
 
     /// <summary>Создание заголовка экрана.</summary>
     /// <param name="label">Текст заголовка.</param>
@@ -18,8 +18,8 @@ public class ScreenBuider
     public UIText CreateHeader(string label, Position position, ConsoleColor color)
     {
         var header = new UIText(label);
-        header.Position = new UIPoint(GetPosition(position, header.Width), 0);
-        header.Padding = new UIPoint(0, 2);
+        header.Position = new Point(GetPosition(position, header.Width), 0);
+        header.Padding = new Point(0, 2);
         header.LabelColor = color;
         return header;
     }
@@ -35,8 +35,8 @@ public class ScreenBuider
         footer.LabelColor = color;
         var paddingTop = 0;
         Array.ForEach(_Screen.ToArray(), i => paddingTop += i.Height);
-        footer.Position = new UIPoint(GetPosition(position, footer.Width), 0);
-        footer.Padding = new UIPoint(0, _Screen.Size.Y - paddingTop - footer.Height - 2);
+        footer.Position = new Point(GetPosition(position, footer.Width), 0);
+        footer.Padding = new Point(0, _Screen.Size.Y - paddingTop - footer.Height - 2);
         return footer;
     }
 
@@ -50,7 +50,7 @@ public class ScreenBuider
     {
         var button = new UIButton(label);
         button.Prefix = prefix;
-        button.Position = new UIPoint(GetPosition(position, button.Width), 0);
+        button.Position = new Point(GetPosition(position, button.Width), 0);
         button.LabelColor = color;
         return button;
     }
@@ -63,7 +63,7 @@ public class ScreenBuider
     public UIButton CreateBackButton(UIScreen screen, Position position, ConsoleColor color)
     {
         var backButton = CreateButton("Назад", position, color);
-        backButton.Padding += new UIPoint(0, 1);
+        backButton.Padding += new Point(0, 1);
         backButton.OnClick += () => screen;
         return backButton;
     }
@@ -75,7 +75,7 @@ public class ScreenBuider
     public UIButton CreateExitButton(Position position, ConsoleColor color)
     {
         var exitButton = CreateButton("Выход", position, color);
-        exitButton.Padding += new UIPoint(0, 1);
+        exitButton.Padding += new Point(0, 1);
         exitButton.OnClick += () => UIScreen.Exit;
         return exitButton;
     }

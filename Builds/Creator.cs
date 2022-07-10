@@ -12,6 +12,22 @@ public static class Creator
 
     /// <summary>Хэш-таблица с экземпоярами зданий.</summary>
     public static Hashtable _Builds = new();
+    
+    /// <summary>Колличество экземпляров зданий.</summary>
+    public static int Count => _Builds.Count;
+
+    public static Build[] Builds
+    {
+        get
+        {
+            var builds = new Build[Count];
+            int counter = 0;
+            foreach (var build in _Builds.Values)
+                builds[counter++] = (Build)build;
+
+            return builds;
+        }
+    }
 
     /// <summary>Создание нового объекта здания.</summary>
     /// <param name="height">Высота здания.</param>
