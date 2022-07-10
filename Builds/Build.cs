@@ -1,0 +1,114 @@
+﻿namespace IntoOOP.Builds;
+
+/// <summary>Класс, описывающий здание.</summary>
+public class Build
+{
+    /// <summary>Значение высоты здания по умолчанию.</summary>
+    private const double DEFAULT_HEIGHT = 1;
+
+    /// <summary>Идентификатор последнего созданного экземпляра здания.</summary>
+    private static int _LastId;
+
+    /// <summary>Уникальный идентификатор здания.</summary>
+    private int _Id;
+
+    /// <summary>Высота здания.</summary>
+    private double _Height = DEFAULT_HEIGHT;
+
+    /// <summary>Колличество этажей в здании.</summary>
+    private int _FloorsCount = 1;
+
+    /// <summary>Колличество подъездов в здании.</summary>
+    private int _EntrancesCount = 1;
+
+    /// <summary>Колличество квартир в здании.</summary>
+    private int _ApartmentsCount = 1;
+
+    /// <summary>Уникальный идентификатор здания.</summary>
+    public int Id => _Id;
+
+    /// <summary>Высота здания.</summary>
+    public double Height
+    {
+        get => _Height;
+        set
+        {
+            if (value <= 0) return;
+            _Height = value;
+        }
+    }
+
+    /// <summary>Колличество этажей в здании.</summary>
+    public int FloorsCount
+    {
+        get => _FloorsCount;
+        set
+        {
+            if (value <= 0) return;
+            _FloorsCount = value;
+        }
+    }
+
+    /// <summary>Колличество подъездов в здании.</summary>
+    public int EntrancesCount
+    {
+        get => _EntrancesCount;
+        set
+        {
+            if (value <= 0) return;
+            _EntrancesCount = value;
+        }
+    }
+
+    /// <summary>Колличество квартир в здании.</summary>
+    public int ApartmentsCount
+    {
+        get => _ApartmentsCount;
+        set
+        {
+            if (value <= 0) return;
+            _ApartmentsCount = value;
+        }
+    }
+
+    /// <summary>Высота этажа.</summary>
+    public double FloorHeight => _Height / _FloorsCount;
+
+    /// <summary>Колличество квартир в подъезде.</summary>
+    public double ApartmentsCountInEntrance => (double)_ApartmentsCount / _EntrancesCount;
+
+    /// <summary>Колличество квартир на этаже.</summary>
+    public double ApartmentsCountInFloor => (double)_ApartmentsCount / _FloorsCount;
+
+    /// <summary>Инициализация объекта здания.</summary>
+    /// <param name="height">Высота здания.</param>
+    public Build(double height = DEFAULT_HEIGHT)
+    {
+        _Id = ++_LastId;
+        Height = height;
+    }
+
+    /// <summary>>Инициализация объекта здания.</summary>
+    /// <param name="apartmentsCount">Колличество квартир в зданиии.</param>
+    /// <param name="height">Высота здания.</param>
+    public Build(int apartmentsCount, double height = DEFAULT_HEIGHT) : this(height) => ApartmentsCount = apartmentsCount;
+
+    /// <summary>>Инициализация объекта здания.</summary>
+    /// <param name="apartmentsCount">Колличество квартир в зданиии.</param>
+    /// <param name="floorsCount">Колличество этажей в здании.</param>
+    /// <param name="height">Высота здания.</param>
+    public Build(int apartmentsCount, int floorsCount, double height = DEFAULT_HEIGHT) : this(apartmentsCount, height)
+        => FloorsCount = floorsCount;
+
+    /// <summary>Инициализация объекта здания.</summary>
+    /// <param name="apartmentsCount">Колличество квартир в зданиии.</param>
+    /// <param name="floorsCount">Колличество этажей в здании.</param>
+    /// <param name="entrancesCount">Колличество подъездо в здании.</param>
+    /// <param name="height">Высота здания.</param>
+    public Build(int apartmentsCount, int floorsCount, int entrancesCount, double height = DEFAULT_HEIGHT) :
+        this(apartmentsCount, floorsCount, height) => EntrancesCount = entrancesCount;
+
+    /// <summary>Переопределение метода приведения объекта класса здания к типу string.</summary>
+    /// <returns>Строка идентификатором объекта.</returns>
+    public override string ToString() => "Здание №" + _Id;
+}
