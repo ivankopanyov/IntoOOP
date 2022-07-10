@@ -1,6 +1,6 @@
 ﻿using IntoOOP.UI;
 
-namespace IntoOOP.Builds;
+namespace IntoOOP;
 
 public class Program
 {

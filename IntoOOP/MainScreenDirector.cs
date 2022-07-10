@@ -1,6 +1,7 @@
 ﻿using IntoOOP.UI;
+using IntoOOP.Builds;
 
-namespace IntoOOP.Builds;
+namespace IntoOOP;
 
 /// <summary>Класс строителя главного экрана приложения.</summary>
 public class MainScreenDirector : ScreenBuider

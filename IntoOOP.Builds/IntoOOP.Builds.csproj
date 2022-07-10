@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -9,7 +8,7 @@
 
   <ItemGroup>
     <Reference Include="IntoOOP.Builds">
-      <HintPath>..\IntoOOP.Builds\bin\Debug\net6.0\IntoOOP.Builds.dll</HintPath>
+      <HintPath>bin\Debug\net6.0\IntoOOP.Builds.dll</HintPath>
     </Reference>
     <Reference Include="IntoOOP.UI">
       <HintPath>..\IntoOOP.UI\bin\Debug\net6.0\IntoOOP.UI.dll</HintPath>

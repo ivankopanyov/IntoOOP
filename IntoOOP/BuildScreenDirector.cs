@@ -1,6 +1,7 @@
 ﻿using IntoOOP.UI;
+using IntoOOP.Builds;
 
-namespace IntoOOP.Builds;
+namespace IntoOOP;
 
 /// <summary>Строитель экрана конструктора здания.</summary>
 public class BuildScreenDirector : ScreenBuider
