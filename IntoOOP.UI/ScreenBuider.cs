@@ -90,7 +90,7 @@ public class ScreenBuider
     /// <returns>Горизонтальная координата элемента на экране.</returns>
     private int GetPosition(Position position, int width) => position switch
     {
-        Position.Right => _Screen.Size.X - width - 1,
+        Position.Right => _Screen.Size.X - width,
         Position.Left => 1,
         Position.Center => (_Screen.Size.X - width) / 2
     };

@@ -16,6 +16,7 @@ public static class Creator
     /// <summary>Колличество экземпляров зданий.</summary>
     public static int Count => _Builds.Count;
 
+    /// <summary>Массив текущих объектов зданий.</summary>
     public static Build[] Builds
     {
         get

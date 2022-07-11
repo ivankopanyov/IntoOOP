@@ -7,7 +7,7 @@ public class Build
     private readonly int _Id;
 
     /// <summary>Высота здания.</summary>
-    private double _Height;
+    private double _Height = 1;
 
     /// <summary>Колличество этажей в здании.</summary>
     private int _FloorsCount = 1;
