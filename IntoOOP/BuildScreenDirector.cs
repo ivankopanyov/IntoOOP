@@ -91,7 +91,7 @@ public class BuildScreenDirector : ScreenBuider
 
         _ApartmentsField.Limit = 4;
         _ApartmentsField.Padding = new Point(paddingLeft, 0);
-        _ApartmentsField.ChangeValue += delegate ()
+        _ApartmentsField.ChangeValue += () =>
         {
             _Build.ApartmentsCount = int.Parse(_ApartmentsField.Value);
             SetColor(_ApartmentsField, _Color);
@@ -111,7 +111,7 @@ public class BuildScreenDirector : ScreenBuider
             _FloorApartments.Label = FLOORS_APARTMENTS_LABEL + _Build.ApartmentsCountInFloor;
             _FloorApartments.Draw(false);
         };
-        _ApartmentsField.InputEnd += delegate ()
+        _ApartmentsField.InputEnd += () =>
         {
             _ApartmentsField.Value = _Build.ApartmentsCount.ToString();
             _ApartmentsField.Draw(false);
@@ -120,7 +120,7 @@ public class BuildScreenDirector : ScreenBuider
 
         _FloorsField.Limit = 3;
         _FloorsField.Padding = new Point(paddingLeft, 0);
-        _FloorsField.ChangeValue += delegate ()
+        _FloorsField.ChangeValue += () =>
         {
             _Build.FloorsCount = int.Parse(_FloorsField.Value);
             SetColor(_FloorsField, _Color);
@@ -139,7 +139,7 @@ public class BuildScreenDirector : ScreenBuider
             _FloorHeight.Label = FLOOR_HEIGHT_LABEL + _Build.FloorHeight;
             _FloorHeight.Draw(false);
         };
-        _FloorsField.InputEnd += delegate ()
+        _FloorsField.InputEnd += () =>
         {
             _FloorsField.Value = _Build.FloorsCount.ToString();
             _FloorsField.Draw(false);
@@ -148,7 +148,7 @@ public class BuildScreenDirector : ScreenBuider
 
         _EntrancesField.Limit = 2;
         _EntrancesField.Padding = new Point(paddingLeft, 0);
-        _EntrancesField.ChangeValue += delegate ()
+        _EntrancesField.ChangeValue += () =>
         {
             _Build.EntrancesCount = int.Parse(_EntrancesField.Value);
             SetColor(_EntrancesField, _Color);
@@ -164,7 +164,7 @@ public class BuildScreenDirector : ScreenBuider
             _EntranceApartments.Label = ENTRANCE_APARTMENTS_LABEL + _Build.ApartmentsCountInEntrance;
             _EntranceApartments.Draw(false);
         };
-        _EntrancesField.InputEnd += delegate ()
+        _EntrancesField.InputEnd += () =>
         {
             _EntrancesField.Value = _Build.EntrancesCount.ToString();
             _EntrancesField.Draw(false);
@@ -175,7 +175,7 @@ public class BuildScreenDirector : ScreenBuider
         _HeightField.Limit = 6;
         _HeightField.Padding = new Point(paddingLeft, 0);
         _HeightField.LabelColor = _Color;
-        _HeightField.ChangeValue += delegate ()
+        _HeightField.ChangeValue += () =>
         {
             _Build.Height = double.Parse(_HeightField.Value);
             _HeightField.Draw(false);
@@ -183,7 +183,7 @@ public class BuildScreenDirector : ScreenBuider
             _FloorHeight.Label = FLOOR_HEIGHT_LABEL + _Build.FloorHeight;
             _FloorHeight.Draw(false);
         };
-        _HeightField.InputEnd += delegate ()
+        _HeightField.InputEnd += () =>
         {
             _HeightField.Value = _Build.Height.ToString();
             _HeightField.Draw(false);
