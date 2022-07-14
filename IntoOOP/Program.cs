@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using System.Globalization;
 using IntoOOP;
 
 const string header = "                     -= Калькулятор =-\n\n";
@@ -99,7 +100,7 @@ while (true)
 object GetOperand(string str)
 { 
     if (Regex.Match(str, doublePattern).Success)
-        return double.Parse(str);
+        return double.Parse(str, CultureInfo.InvariantCulture);
     else if (Regex.Match(str, ratioPattern).Success)
     {
         var arr = str.Split('/', StringSplitOptions.RemoveEmptyEntries);
@@ -108,7 +109,8 @@ object GetOperand(string str)
     else if (Regex.Match(str, complexPattern).Success)
     {
         var arr = str.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-        return new Complex(double.Parse(arr[0]), double.Parse(arr[1]));
+        return new Complex(double.Parse(arr[0], CultureInfo.InvariantCulture), 
+            double.Parse(arr[1], CultureInfo.InvariantCulture));
     }
 
     throw new ArgumentException(nameof(str), "Некорректный формат строки.");

@@ -1,6 +1,6 @@
 ﻿namespace IntoOOP;
 
-/// <summary>Класс, описывающий рациональное число.</summary>
+/// <summary>Структура, описывающая рациональное число.</summary>
 public readonly struct Ratio
 {
     /// <summary>Числитель.</summary>
