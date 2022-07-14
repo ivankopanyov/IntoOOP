@@ -1,13 +1,20 @@
 ﻿namespace IntoOOP;
 
 /// <summary>Класс, описывающий рациональное число.</summary>
-public class Ratio
+public readonly struct Ratio
 {
     /// <summary>Числитель.</summary>
     public int P { get; }
 
     /// <summary>Знаменатель.</summary>
     public int Q { get; }
+
+    /// <summary>Инициализация рационального числа.</summary>
+    public Ratio()
+    {
+        P = 0;
+        Q = 1;
+    }
 
     /// <summary>Инициализация рационального числа.</summary>
     /// <param name="p">Числитель.</param>
@@ -111,7 +118,7 @@ public class Ratio
 
     /// <summary>Явное приведение типа Complex к типу Ratio.</summary>
     /// <param name="value">Приводимое значение.</param>
-    public static explicit operator Ratio(Complex value) => new Ratio((int)value.R, 1);
+    public static explicit operator Ratio(Complex value) => (Ratio)value.R;
 
     #endregion
 
@@ -380,15 +387,16 @@ public class Ratio
     private static Ratio NumberToRatio(string[] numberArr)
     {
         var p = int.Parse(numberArr[0]);
-        double intValue = p;
+        double intValue = p == 0 ? 1 : p;
 
         var q = 1;
         var i = 0;
 
-        for (; i < numberArr[1].Length; q *= 10, i++)
+        for (; i < numberArr[1].Length; i++)
         {
             intValue *= 10;
             if (intValue > int.MaxValue || intValue < int.MinValue) break;
+            q *= 10;
         }
 
         p *= q;

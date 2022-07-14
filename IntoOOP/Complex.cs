@@ -213,7 +213,7 @@ public readonly struct Complex
     /// <summary>Приведение комплексного числа к типу string.</summary>
     /// <returns>Возвращает строку с комплексным числом.</returns>
     public override string ToString() =>
-        $"{(R == 0 ? string.Empty : R)}{(R == 0 && I == 0 ? '0' : " + ")}{(I == 0 ? string.Empty : $"i * {I}")}";
+        $"{R}{(I == 0 ? string.Empty : $" + i * {I}")}";
 
     /// <summary>Сравнение комплексных чисел на эквивалентность.</summary>
     /// <param name="obj">Объект для сравнения.</param>
