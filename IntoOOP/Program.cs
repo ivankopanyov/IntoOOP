@@ -3,7 +3,7 @@ using IntoOOP.Bank.Screen;
 
 #if DEBUG
 
-var test = new IntoOOP.Bank.Tests.AccountTest();
+var test = new IntoOOP.Bank.Tests.AccountEqualsTest();
 test.DoProcess();
 Console.Write("\nДля старта приложения нажмите любую клавишу...");
 Console.ReadKey(true);
