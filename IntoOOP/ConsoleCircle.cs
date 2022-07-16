@@ -15,7 +15,14 @@ public class ConsoleCircle : Circle
         if (IsHidden) return;
 
         var color = Console.ForegroundColor;
-        Console.ForegroundColor = Color;
+        try
+        {
+            Console.ForegroundColor = (ConsoleColor)Color;
+        }
+        catch (ArgumentException)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+        }
 
         for (int y = (int)Pos.Y - (int)Radius; y <= Pos.Y + Radius; y++)
         {

@@ -16,7 +16,14 @@ public class ConsoleRectangle : Rectangle
         if (IsHidden) return;
 
         var color = Console.ForegroundColor;
-        Console.ForegroundColor = Color;
+        try
+        {
+            Console.ForegroundColor = (ConsoleColor)Color;
+        }
+        catch (ArgumentException)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+        }
 
         for (int y = (int)Pos.Y; y <= Pos.Y + Size.Y; y++)
         {

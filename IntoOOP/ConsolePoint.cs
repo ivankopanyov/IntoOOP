@@ -15,7 +15,14 @@ public class ConsolePoint : Point
 
         Console.SetCursorPosition((int)pos.X, (int)pos.Y);
         var color = Console.ForegroundColor;
-        Console.ForegroundColor = Color;
+        try
+        {
+            Console.ForegroundColor = (ConsoleColor)Color;
+        }
+        catch (ArgumentException)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+        }
         Console.WriteLine("██");
         Console.ForegroundColor = color;
 

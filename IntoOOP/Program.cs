@@ -14,17 +14,17 @@ var figures = new Point[]
     new ConsolePoint()
     {
         Pos = startPos,
-        Color = ConsoleColor.Blue
+        Color = Color.Blue
     },
     new ConsoleCircle(4)
     {
         Pos = startPos,
-        Color = ConsoleColor.Green
+        Color = Color.Green
     },
     new ConsoleRectangle(4, 4)
     {
         Pos = startPos - Vector.One * 2,
-        Color = ConsoleColor.Red
+        Color = Color.Red
     }
 };
 
@@ -52,9 +52,9 @@ void KeyDown(ConsoleKey key)
         case ConsoleKey.DownArrow:  Move(Vector.Down);  break;
         case ConsoleKey.LeftArrow:  Move(Vector.Left);  break;
         case ConsoleKey.RightArrow: Move(Vector.Right); break;
-        case ConsoleKey.R: SetColor(ConsoleColor.Red);   break;
-        case ConsoleKey.G: SetColor(ConsoleColor.Green); break;
-        case ConsoleKey.B: SetColor(ConsoleColor.Blue);  break;
+        case ConsoleKey.R: SetColor(Color.Red);   break;
+        case ConsoleKey.G: SetColor(Color.Green); break;
+        case ConsoleKey.B: SetColor(Color.Blue);  break;
         case ConsoleKey.OemPlus:  SetSize(1);  break;
         case ConsoleKey.OemMinus: SetSize(-1); break;
     }
@@ -76,7 +76,7 @@ void Move(Vector vector)
     Draw();
 }
 
-void SetColor(ConsoleColor color)
+void SetColor(Color color)
 {
     if (color == currentFigere.Color) return;
 

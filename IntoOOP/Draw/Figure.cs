@@ -7,7 +7,7 @@ public class Figure
     public Vector Pos { get; set; } 
 
     /// <summary>Цвет фигуры.</summary>
-    public ConsoleColor Color { get; set; }
+    public Color Color { get; set; }
 
     /// <summary>Видимость фигуры.</summary>
     public bool IsHidden { get; set; }
