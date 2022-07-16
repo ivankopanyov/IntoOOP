@@ -1,14 +1,18 @@
-﻿using IntoOOP.Text;
-using IntoOOP.Text.Tests;
+using IntoOOP;
+using IntoOOP.UI;
 
-var test = new ReverseTest();
-test.DoProcess();
+var size = new Point(119, 43);
+
+Console.SetWindowSize(size.X, size.Y);
+Console.SetBufferSize(size.X, size.Y);
+
+Console.CursorVisible = false;
+
+var screen = new MainScreenDirector(size).Build();
 
 while (true)
 {
-    Console.Write("Введите строку для разворота: ");
-    var input = Console.ReadLine();
-    if (string.IsNullOrEmpty(input)) return;
-    var result = TextHandler.Reverse(input);
-    Console.WriteLine($"Результат: {result}\n");
+    screen.Show();
+    screen = screen.Control();
+    if (screen == UIScreen.Exit) return;
 }
