@@ -1,4 +1,4 @@
-﻿using IntoOOP;
+using IntoOOP;
 using IntoOOP.UI;
 
 var size = new Point(119, 43);
