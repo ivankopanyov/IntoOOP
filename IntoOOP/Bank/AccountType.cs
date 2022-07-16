@@ -1,22 +1,14 @@
 ﻿namespace IntoOOP.Bank;
 
-/// <summary>
-/// Тип банковского счета.
-/// </summary>
+/// <summary>Тип банковского счета.</summary>
 public enum AccountType
 {
-    /// <summary>
-    /// Дебетовый счет.
-    /// </summary>
+    /// <summary>Дебетовый счет.</summary>
     Debit,
 
-    /// <summary>
-    /// Кредитный счет.
-    /// </summary>
+    /// <summary>Кредитный счет.</summary>
     Credit,
 
-    /// <summary>
-    /// Депозитный счет.
-    /// </summary>
+    /// <summary>Депозитный счет.</summary>
     Deposit
 }

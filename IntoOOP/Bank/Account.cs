@@ -1,77 +1,51 @@
 ﻿namespace IntoOOP.Bank;
 
-/// <summary>
-/// Класс банковского счета.
-/// </summary>
+/// <summary>Класс, описывающий банковский счет.</summary>
 public class Account
 {
-    /// <summary>
-    /// Номер последнего созданного счета.
-    /// </summary>
-    private static int _lastNumber;
+    /// <summary>Номер последнего инициализированного объекта счета.</summary>
+    private static int _LastNumber;
 
-    /// <summary>
-    /// Номер счета.
-    /// </summary>
-    public readonly int number;
+    /// <summary>Текущий баланс счета.</summary>
+    private decimal _Balance;
 
-    /// <summary>
-    /// Тип счета.
-    /// </summary>
-    public readonly AccountType accountType;
+    /// <summary>Номер счета.</summary>
+    public int Number { get; init; }
 
-    /// <summary>
-    /// Название типа счета.
-    /// </summary>
-    public readonly string displayAccountType;
+    /// <summary>Тип счета.</summary>
+    public AccountType AccountType { get; init; }
 
-    /// <summary>
-    /// Баланс счета.
-    /// </summary>
-    private decimal _balance;
+    /// <summary>Название типа счета.</summary>
+    public string DisplayAccountType { get; init; }
 
-    /// <summary>
-    /// Текущий баланс счета.
-    /// </summary>
-    public decimal Balance => _balance;
+    /// <summary>Текущий баланс счета.</summary>
+    public decimal Balance => _Balance;
 
-    /// <summary>
-    /// Строка с балансом счета.
-    /// </summary>
-    public string DisplayBalance => _balance.ToString("N2", System.Globalization.CultureInfo.CreateSpecificCulture("ru-RU"));
+    /// <summary>Строка с текущим балансом счета.</summary>
+    public string DisplayBalance => _Balance.ToString("N2", System.Globalization.CultureInfo.CreateSpecificCulture("ru-RU"));
 
-    /// <summary>
-    /// Конструктор класса банковского счета.
-    /// </summary>
+    /// <summary>Инициализация объекта банковского счета.</summary>
     public Account()
     {
-        number = ++_lastNumber;
-        displayAccountType = GetDisplayAccountType(accountType);
+        Number = ++_LastNumber;
+        DisplayAccountType = GetDisplayAccountType(AccountType);
     }
 
-    /// <summary>
-    /// Конструктор класса банковского счета.
-    /// </summary>
-    /// <param name="balance">Устанавливает баланс счета.</param>
-    public Account(decimal balance) : this() => _balance = balance;
+    /// <summary>Инициализация объекта банковского счета.</summary>
+    /// <param name="balance">Баланс счета.</param>
+    public Account(decimal balance) : this() => _Balance = balance;
 
-    /// <summary>
-    /// Конструктор класса банковского счета.
-    /// </summary>
-    /// <param name="accountType">Устанавливает тип счета.</param>
-    public Account(AccountType accountType) : this() => this.accountType = accountType;
+    /// <summary>Инициализация объекта банковского счета.</summary>
+    /// <param name="accountType">Тип счета.</param>
+    public Account(AccountType accountType) : this() => this.AccountType = accountType;
 
-    /// <summary>
-    /// Конструктор класса банковского счета.
-    /// </summary>
-    /// <param name="_balance">Устанавливает баланс счета.</param>
-    /// <param name="accountType">Устанавливает тип счета.</param>
+    /// <summary>Инициализация объекта банковского счета.</summary>
+    /// <param name="_balance">Баланс счета.</param>
+    /// <param name="accountType">Тип счета.</param>
     public Account(decimal _balance, AccountType accountType) : this(_balance) => 
-        this.accountType = accountType;
+        this.AccountType = accountType;
 
-    /// <summary>
-    /// Внесение средств на счет.
-    /// </summary>
+    /// <summary>Внесение средств на счет.</summary>
     /// <param name="amount">Колличество вносимых средств.</param>
     /// <exception cref="ArgumentException">Возбуждается, если сумма внесения меньше 0.</exception>
     public void Deposit(decimal amount)
@@ -79,12 +53,10 @@ public class Account
         if (amount < 0)
             throw new ArgumentException("Сумма указана некорректно.");
 
-        _balance += amount;
+        _Balance += amount;
     }
 
-    /// <summary>
-    /// Снятие средств со счета.
-    /// </summary>
+    /// <summary>Снятие средств со счета.</summary>
     /// <param name="amount">Колличество снимаемых средств.</param>
     /// <exception cref="ArgumentException">Возбуждается при недостатке средств или если
     /// сумма снятия меньше 0.</exception>
@@ -95,15 +67,13 @@ public class Account
         if (amount < 0)
             throw new ArgumentException("Сумма указана некорректно.", nameof(amount));
 
-        if (amount > _balance)
+        if (amount > _Balance)
             throw new ArgumentException("Недостаточно средств на счете.", nameof(amount));
 
-        _balance -= amount;
+        _Balance -= amount;
     }
 
-    /// <summary>
-    /// Перевод средств на другой счет.
-    /// </summary>
+    /// <summary>Перевод средств на другой счет.</summary>
     /// <param name="account">Счет для перевода.</param>
     /// <param name="amount">Колличество средств для пеервода.</param>
     /// <exception cref="ArgumentNullException">Возбуждается, если переданный счет не инициализирован.</exception>
@@ -126,9 +96,7 @@ public class Account
         account.Deposit(amount);
     }
 
-    /// <summary>
-    /// Получение названия типа счета.
-    /// </summary>
+    /// <summary>Получение названия типа счета.</summary>
     /// <param name="accountType">Тип счета.</param>
     /// <returns>Название типа счета.</returns>
     public static string GetDisplayAccountType(AccountType accountType) => accountType switch
@@ -139,9 +107,7 @@ public class Account
         _ => "Не установлен"
     };
 
-    /// <summary>
-    /// Приведение экземпляра класса счета к типу строки.
-    /// </summary>
-    /// <returns>Строка счета.</returns>
-    public override string ToString() => $"{GetDisplayAccountType(accountType)} счет №{number} ";
+    /// <summary>Приведение экземпляра класса счета к типу строки.</summary>
+    /// <returns>Строка с информацией о счете.</returns>
+    public override string ToString() => $"{DisplayAccountType} счет №{Number} ";
 }

@@ -1,95 +1,65 @@
 ﻿namespace IntoOOP.Bank.UI;
 
-/// <summary>
-/// Класс экрана.
-/// </summary>
+/// <summary>Класс, описывающий экран.</summary>
 public class UIScreen
 {
-    /// <summary>
-    /// Экран для выхода из приложения.
-    /// </summary>
+    /// <summary>Экран для выхода из приложения.</summary>
     private static UIScreen _exit = new UIScreen();
 
-    /// <summary>
-    /// Экран для выхода из приложения.
-    /// </summary>
+    /// <summary>Экран для выхода из приложения.</summary>
     public static UIScreen Exit => _exit;
 
-    /// <summary>
-    /// Заголовок приложения.
-    /// </summary>
-    private UIText _header = new UIText().Add(string.Empty);
+    /// <summary>Заголовок приложения.</summary>
+    private UIText _Header = new UIText().Add(string.Empty);
 
-    /// <summary>
-    /// Информация об экране.
-    /// </summary>
-    private UIText _label = new UIText().Add(string.Empty);
+    /// <summary>Информация об экране.</summary>
+    private UIText _Label = new UIText().Add(string.Empty);
 
-    /// <summary>
-    /// Сообщение об ошибке.
-    /// </summary>
-    private UIText _message = new UIText().Add(string.Empty);
+    /// <summary>Сообщение об ошибке.</summary>
+    private UIText _Message = new UIText().Add(string.Empty);
 
-    /// <summary>
-    /// Дополнительное сообщение.
-    /// </summary>
-    private UIText _postMessage = new UIText().Add(string.Empty);
+    /// <summary>Дополнительное сообщение.</summary>
+    private UIText _PostMessage = new UIText().Add(string.Empty);
 
-    /// <summary>
-    /// Информация об экране.
-    /// </summary>
+    /// <summary>Информация об экране.</summary>
     public UIText Header 
     {
-        get => _header;
-        set => _header = value == null ? new UIText().Add(string.Empty) : value;
+        get => _Header;
+        set => _Header = value == null ? new UIText().Add(string.Empty) : value;
     }
 
-    /// <summary>
-    /// Информация об экране.
-    /// </summary>
+    /// <summary>Информация об экране.</summary>
     public UIText Label
     {
-        get => _label;
-        set => _label = value == null ? new UIText().Add(string.Empty) : value;
+        get => _Label;
+        set => _Label = value == null ? new UIText().Add(string.Empty) : value;
     }
 
-    /// <summary>
-    /// Сообщение об ошибке.
-    /// </summary>
+    /// <summary>Сообщение об ошибке.</summary>
     public UIText Message
     {
-        get => _message;
-        set => _message = value == null ? new UIText().Add(string.Empty) : value;
+        get => _Message;
+        set => _Message = value == null ? new UIText().Add(string.Empty) : value;
     }
 
-    /// <summary>
-    /// Дополнительное сообщение.
-    /// </summary>
+    /// <summary>Дополнительное сообщение.</summary>
     public UIText PostMessage
     {
-        get => _postMessage;
-        set => _postMessage = value == null ? new UIText().Add(string.Empty) : value;
+        get => _PostMessage;
+        set => _PostMessage = value == null ? new UIText().Add(string.Empty) : value;
     }
 
-    /// <summary>
-    /// Список элементов экрана.
-    /// </summary>
+    /// <summary>Список элементов экрана.</summary>
     private List<UIScreenItem> _items = new();
 
-    /// <summary>
-    /// Колличество элементов экрана.
-    /// </summary>
+    /// <summary>Колличество элементов экрана.</summary>
     public int Amount => _items.Count;
 
-    /// <summary>
-    /// Общая высота заголовков экрана.
-    /// </summary>
-    private int HeaderHeight => (_header.Length > 0 ? 2 : 0) + (_message.Length > 0 ? 2 : 0) + 
-        (_label.Length > 0 ? 2 : 0) + (_postMessage.Length > 0 ? 2 : 0);
+    /// <summary>Общая высота заголовков экрана.</summary>
+    private int HeaderHeight => (_Header.Length > 0 ? 2 : 0) + (_Message.Length > 0 ? 2 : 0) + 
+        (_Label.Length > 0 ? 2 : 0) + (_PostMessage.Length > 0 ? 2 : 0);
 
-    /// <summary>
-    /// Метод добавления элемента на экран.
-    /// </summary>
+    /// <summary>Метод добавления элемента на экран.</summary>
     /// <param name="item">Элемент для добавления на экран.</param>
     /// <param name="index">Индекс куда будет добавлен элемент.</param>
     public void Add(UIScreenItem item, int index = -1)
@@ -103,9 +73,7 @@ public class UIScreen
         Update(index);
     }
 
-    /// <summary>
-    /// Удаление элемента экрана.
-    /// </summary>
+    /// <summary>Удаление элемента экрана.</summary>
     /// <param name="item">Удаляемый элемент.</param>
     public void Remove(UIText label)
     {
@@ -117,9 +85,7 @@ public class UIScreen
         }
     }
 
-    /// <summary>
-    /// Вывод экрана в консоль.
-    /// </summary>
+    /// <summary>Вывод экрана в консоль.</summary>
     public void Show()
     {
         Update(0);
@@ -127,34 +93,32 @@ public class UIScreen
 
         Console.SetCursorPosition(1, 0);
 
-        if (_header.Length > 0)
+        if (_Header.Length > 0)
         {
-            _header.Print();
+            _Header.Print();
             Console.SetCursorPosition(1, Console.CursorTop += 2);
         }
 
-        if (_message.Length > 0)
+        if (_Message.Length > 0)
         {
-            _message.Print();
+            _Message.Print();
             Console.SetCursorPosition(1, Console.CursorTop += 2);
         }
 
-        if (_label.Length > 0)
+        if (_Label.Length > 0)
         {
-            _label.Print();
+            _Label.Print();
             Console.SetCursorPosition(5, Console.CursorTop += 2);
         }
 
-        if (_postMessage.Length > 0)
-            _postMessage.Print();
+        if (_PostMessage.Length > 0)
+            _PostMessage.Print();
 
         foreach (var item in _items)
             item.Draw(false);
     }
 
-    /// <summary>
-    /// Запуск управления элементами экрана.
-    /// </summary>
+    /// <summary>Запуск управления элементами экрана.</summary>
     /// <returns>Возвращает следующий экран.</returns>
     public UIScreen Control()
     {
@@ -183,9 +147,7 @@ public class UIScreen
         }
     }
 
-    /// <summary>
-    /// Обновление позиции элементов экрана.
-    /// </summary>
+    /// <summary>Обновление позиции элементов экрана.</summary>
     /// <param name="index">Индекс элмента, с которого начинается обновление.</param>
     private void Update(int index)
     {

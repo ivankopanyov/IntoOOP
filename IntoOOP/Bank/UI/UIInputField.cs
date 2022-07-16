@@ -1,51 +1,33 @@
 ﻿namespace IntoOOP.Bank.UI;
 
-/// <summary>
-/// Класс поля ввода числа.
-/// </summary>
+/// <summary>Класс, описывающий поле ввода числа.</summary>
 public class UIInputField : UIScreenItem
 {
-    /// <summary>
-    /// Максимальное колличество символов для ввода.
-    /// </summary>
+    /// <summary>Максимальное колличество символов для ввода.</summary>
     private const int LIMIT = 50;
 
-    /// <summary>
-    /// Позиция начала ввода.
-    /// </summary>
-    private Point _cursorPos;
+    /// <summary>Позиция начала ввода.</summary>
+    private Point _CursorPos;
 
-    /// <summary>
-    /// Текстовое значение ввода.
-    /// </summary>
-    private string _value = string.Empty;
+    /// <summary>Текстовое значение ввода.</summary>
+    private string _Value = string.Empty;
 
-    /// <summary>
-    /// Высота поля ввода.
-    /// </summary>
+    /// <summary>Высота поля ввода.</summary>
     public override int Height => Padding.Y + 3;
 
-    /// <summary>
-    /// Числовое значение ввода.
-    /// </summary>
-    public decimal Value => _value == string.Empty || _value == "," ? 0 : decimal.Parse(_value);
+    /// <summary>Числовое значение ввода.</summary>
+    public decimal Value => _Value == string.Empty || _Value == "," ? 0 : decimal.Parse(_Value);
 
-    /// <summary>
-    /// Ширина поля ввода.
-    /// </summary>
+    /// <summary>Ширина поля ввода.</summary>
     public override int Width => Label.Length + LIMIT + 5;
 
-    /// <summary>
-    /// Конструктор класса поля ввода.
-    /// </summary>
+    /// <summary>Инициализация объекта поля ввода.</summary>
     /// <param name="label">Текст, выводимый перед полем ввода.</param>
     /// <param name="padding">Отступы.</param>
     public UIInputField(UIText label, Point padding) : base(label, padding) => 
-        _cursorPos = new Point(Label.Length + Padding.X + 3, _cursorPos.Y);
+        _CursorPos = new Point(Label.Length + Padding.X + 3, _CursorPos.Y);
 
-    /// <summary>
-    /// Метод вывода поля ввода в консоль.
-    /// </summary>
+    /// <summary>Метод вывода поля ввода в консоль.</summary>
     /// <param name="focus">Установка фокуса на поле ввода.</param>
     /// <returns>Возвращает клавишу завершения ввода.</returns>
     public override ConsoleKey Draw(bool focus)
@@ -59,33 +41,29 @@ public class UIInputField : UIScreenItem
 
         Console.CursorLeft = Padding.X;
         Label.Print();
-        Console.Write(": │" + _value);
-        Console.CursorLeft += LIMIT + 1 - _value.Length;
+        Console.Write(": │" + _Value);
+        Console.CursorLeft += LIMIT + 1 - _Value.Length;
         Console.WriteLine('│');
 
         Console.CursorLeft = Padding.X + Label.Length + 2;
         Console.WriteLine('└' + border + '┘');
 
-        _cursorPos = new Point(_cursorPos.X, Position.Y + 1);
+        _CursorPos = new Point(_CursorPos.X, Position.Y + 1);
 
         if (Focus) return Read();
         return default;
     }
 
-    /// <summary>
-    /// Метод, выполняемый при нажатии клавиши Enter.
-    /// </summary>
+    /// <summary>Метод, выполняемый при нажатии клавиши Enter.</summary>
     /// <returns>Возвращает null.</returns>
-    public override UIScreen Click() => null;
+    public override UIScreen Click() => null!;
 
-    /// <summary>
-    /// Метод ввода значения в поле ввода.
-    /// </summary>
+    /// <summary>Метод ввода значения в поле ввода.</summary>
     /// <returns>Возвращает клавишу завершения ввода.</returns>
     private ConsoleKey Read()
     {
         Console.CursorVisible = true;
-        Console.SetCursorPosition(_cursorPos.X + _value.Length, _cursorPos.Y);
+        Console.SetCursorPosition(_CursorPos.X + _Value.Length, _CursorPos.Y);
 
         ConsoleKeyInfo key;
 
@@ -101,23 +79,23 @@ public class UIInputField : UIScreenItem
 
             if (key.Key == ConsoleKey.Backspace)
             {
-                if (_value != string.Empty)
+                if (_Value != string.Empty)
                 {
-                    _value = _value.Substring(0, _value.Length - 1);
+                    _Value = _Value.Substring(0, _Value.Length - 1);
                     Console.Write("\b \b");
                 }
             }
-            else if (_value.Length < LIMIT && (char.IsDigit(key.KeyChar) || key.KeyChar == ','))
+            else if (_Value.Length < LIMIT && (char.IsDigit(key.KeyChar) || key.KeyChar == ','))
             {
-                if (key.KeyChar == '0' && _value == string.Empty) continue;
+                if (key.KeyChar == '0' && _Value == string.Empty) continue;
 
-                var inputArr = _value.Split(',');
+                var inputArr = _Value.Split(',');
 
                 if ((key.KeyChar == ',' && (inputArr.Length > 1 || inputArr[0] == string.Empty)) ||
                     inputArr.Length > 1 && inputArr[1].Length == 2) continue;
 
                 Console.Write(key.KeyChar);
-                _value += key.KeyChar;
+                _Value += key.KeyChar;
             }
         }
     }
