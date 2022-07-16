@@ -22,15 +22,15 @@ public readonly struct Vector
     public static Vector One => new Vector(1, 1);
 
     /// <summary>Направление вектора по оси x.</summary>
-    public int X { get; init; }
+    public double X { get; init; }
 
     /// <summary>Направление вектора по оси y.</summary>
-    public int Y { get; init; }
+    public double Y { get; init; }
 
     /// <summary>Инициализация объекта вектора.</summary>
     /// <param name="x">Направление вектора по оси x.</param>
     /// <param name="y">Направление вектора по оси y.</param>
-    public Vector(int x, int y)
+    public Vector(double x, double y)
     {
         X = x;
         Y = y;
@@ -72,14 +72,14 @@ public readonly struct Vector
     /// <param name="vector">Вектор.</param>
     /// <param name="value">Число.</param>
     /// <returns>Новый вектор с координатами произведения координат операндов.</returns>
-    public static Vector operator *(Vector vector, int value) => new Vector(vector.X * value, vector.Y * value);
+    public static Vector operator *(Vector vector, double value) => new Vector(vector.X * value, vector.Y * value);
 
     /// <summary>Оператор деления вектора на число.</summary>
     /// <param name="vector">Делимое.</param>
     /// <param name="value">Делитель.</param>
     /// <returns>Новый вектор с координатами частного координат операндов.</returns>
     /// <exception cref="DivideByZeroException">Возбуждается, если делитель равен 0.</exception>
-    public static Vector operator /(Vector vector, int value)
+    public static Vector operator /(Vector vector, double value)
     {
         if (value == 0)
             throw new DivideByZeroException();
@@ -87,7 +87,48 @@ public readonly struct Vector
         return new Vector(vector.X / value, vector.Y / value);
     }
 
+    /// <summary>Оператор равенства векторов.</summary>
+    /// <param name="left">Левый операнд.</param>
+    /// <param name="right">Правый операнд.</param>
+    /// <returns>Результат проверки на равенство векторов.</returns>
+    public static bool operator ==(Vector left, Vector right) => Equals(left, right);
+
+
+    /// <summary>Оператор неравенства векторов.</summary>
+    /// <param name="left">Левый операнд.</param>
+    /// <param name="right">Правый операнд.</param>
+    /// <returns>Результат проверки на неравенство векторов.</returns>
+    public static bool operator !=(Vector left, Vector right) => !Equals(left, right);
+
+    /// <summary>Сравнение векторов на эквивалентность.</summary>
+    /// <param name="obj">Объект для сравнения.</param>
+    /// <returns>Возвращает true, если координаты векторов равны.</returns>
+    public override bool Equals(object? obj)
+    {
+        if (obj == null) return false;
+        if (obj.GetType() != typeof(Vector)) return false;
+
+        var other = (Vector)obj;
+
+        return X == other.X && Y == other.Y;
+    }
+
+    /// <summary>Переопределение метода генерирования хэш-кода.</summary>
+    /// <returns>Хэш-код</returns>
+    public override int GetHashCode()
+    {
+        var hash = 274;
+
+        unchecked
+        {
+            hash = (hash * 0x112) ^ X.GetHashCode();
+            hash = (hash * 0x112) ^ Y.GetHashCode();
+        }
+
+        return hash;
+    }
+
     /// <summary>Приведение вектора к типу строки.</summary>
     /// <returns>Строка с координатами вектора.</returns>
-    public override string ToString() => $"Vector(X: {X}, Y:{Y})";
+    public override string ToString() => $"(X: {X}, Y: {Y})";
 }
