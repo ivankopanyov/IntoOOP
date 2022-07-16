@@ -1,4 +1,4 @@
-﻿using System.Text.RegularExpressions;
+using System.Text.RegularExpressions;
 using System.Globalization;
 using IntoOOP;
 
@@ -191,6 +191,3 @@ string Calc(double left, double right, string oper) => oper switch
     "<=" => (left <= right).ToString(),
     _ => $"Операция {oper} не возможна с типом double"
 };
-
-
-
