@@ -16,7 +16,10 @@ public class Figure
     public virtual double Area => 0;
 
     /// <summary>Отрисовка фигуры.</summary>
-    public virtual void Draw() { }
+    /// <param name="areaStart">Начало области вывода.</param>
+    /// <param name="areaSize">Размер области вывода.</param>
+    /// <param name="symbol">Символ отрисовки фигуры.</param>
+    public virtual void Draw(Vector areaStart, Vector areaSize, char symbol) { }
 
     /// <summary>Приведение объекта фигуры к строке с информацией об объекте фигуры.</summary>
     /// <returns>Cтрока с информацией об объекте фигуры.</returns>

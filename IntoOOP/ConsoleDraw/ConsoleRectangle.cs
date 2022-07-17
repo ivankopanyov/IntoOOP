@@ -1,6 +1,6 @@
 ﻿using IntoOOP.Draw;
 
-namespace IntoOOP;
+namespace IntoOOP.ConsoleDraw;
 
 /// <summary>Класс, описывающий прямоугольник для работы с консольным интерфейсом.</summary>
 public class ConsoleRectangle : Rectangle
@@ -10,8 +10,13 @@ public class ConsoleRectangle : Rectangle
     /// <param name="heght">Высота прямоугольника.</param>
     public ConsoleRectangle(int width, int heght) : base(new Vector(width, heght)) { }
 
+
+
     /// <summary>Вывод прямоугольника в консоль.</summary>
-    public override void Draw()
+    /// <param name="areaStart">Начало области вывода.</param>
+    /// <param name="areaSize">Размер области вывода.</param>
+    /// <param name="symbol">Символ отрисовки фигуры.</param>
+    public override void Draw(Vector areaStart, Vector areaSize, char symbol)
     {
         if (IsHidden) return;
 
@@ -25,17 +30,20 @@ public class ConsoleRectangle : Rectangle
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+        var areaEnd = areaStart + new Vector(areaSize.X < 0 ? 0 : areaSize.X, areaSize.Y < 0 ? 0 : areaSize.Y);
+
         for (int y = (int)Pos.Y; y <= Pos.Y + Size.Y; y++)
         {
-            if (y < 0) continue;
-            if (y >= Console.WindowHeight) break;
+            if (y < 0 || y < areaStart.Y) continue;
+            if (y >= Console.WindowHeight || y >= areaEnd.Y) break;
 
             for (int x = (int)Pos.X * 2; x <= (Pos.X + Size.X) * 2; x += 2)
             {
-                if (x < 0) continue;
-                if (x >= Console.WindowWidth) break;
-                Console.SetCursorPosition(x, y);
-                Console.Write("██");
+                if (x < 0 || y < areaStart.X) continue;
+                if (x >= Console.WindowWidth || y >= areaEnd.X) break;
+                Console.SetCursorPosition((int)areaStart.X + x, (int)areaStart.Y + y);
+                Console.Write(symbol);
+                Console.Write(symbol);
             }
         }
 
