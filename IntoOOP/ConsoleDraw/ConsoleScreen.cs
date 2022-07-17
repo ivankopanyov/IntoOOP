@@ -6,7 +6,7 @@ namespace IntoOOP.ConsoleDraw;
 public class ConsoleScreen
 {
     /// <summary>Символ отрисовки фигуры.</summary>
-    private const char _Symbol = '█';
+    private const char SYMBOL = '█';
 
     /// <summary>Состояние видимости экрана.</summary>
     private bool _IsShow;
@@ -32,6 +32,9 @@ public class ConsoleScreen
     /// <summary>Длина строки описания фигуры.</summary>
     private int _InfoLength;
 
+    /// <summary>Текущий размер консоли.</summary>
+    private Vector _ConsoleSize;
+
     /// <summary>Состояние видимости экрана.</summary>
     public bool IsShow
     { 
@@ -41,7 +44,11 @@ public class ConsoleScreen
             if (value == _IsShow) return;
 
             Console.Clear();
-            if (value) Draw();
+            if (value)
+            {
+                Draw(); 
+                _ConsoleSize = new Vector(Console.WindowWidth, Console.WindowHeight);
+            }
             _IsShow = value;
         }
     }
@@ -65,7 +72,8 @@ public class ConsoleScreen
                 _DrawAreaHeight = Console.WindowHeight - _Footer.Split('\n').Length - 3;
             }
 
-            if (_IsShow) DrawFooter();
+            if (_IsShow)
+                if (!RedrawAll()) DrawFooter();
         }
     }
 
@@ -124,7 +132,8 @@ public class ConsoleScreen
         if (_CurrentFigure == null)
         {
             _CurrentFigure = figure;
-            if (IsShow) Draw();
+            if (_IsShow)
+                if (!RedrawAll()) Draw();
         }
     }
 
@@ -137,7 +146,8 @@ public class ConsoleScreen
         if (IsShow) Clear();
 
         _CurrentFigure = _Figures[index];
-        if (IsShow) Draw();
+        if (_IsShow)
+            if (!RedrawAll()) Draw();
     }
 
     /// <summary>Изменение позиции текущей отображаемой фигуры.</summary>
@@ -149,7 +159,8 @@ public class ConsoleScreen
         if (IsShow) Clear();
 
         _CurrentFigure.Pos += vector;
-        if (IsShow) Draw();
+        if (_IsShow)
+            if (!RedrawAll()) Draw();
     }
 
     /// <summary>Изменение цвета текущей отображаемой фигуры.</summary>
@@ -159,7 +170,8 @@ public class ConsoleScreen
         if (color == _CurrentFigure.Color) return;
 
         _CurrentFigure.Color = color;
-        if (IsShow) Draw();
+        if (_IsShow)
+            if (!RedrawAll()) Draw();
     }
 
     /// <summary>Изменение размера текущей отображаемой фигуры.</summary>
@@ -177,7 +189,8 @@ public class ConsoleScreen
             if (IsShow && addValue < 0) Clear();
 
             circle.Radius += addValue;
-            if (IsShow) Draw();
+            if (_IsShow)
+                if (!RedrawAll()) Draw();
             return;
         }
 
@@ -189,7 +202,8 @@ public class ConsoleScreen
             if (IsShow && addValue < 0) Clear();
 
             rectangle.Size += Vector.One * addValue;
-            if (IsShow) Draw();
+            if (_IsShow)
+                if (!RedrawAll()) Draw();
             return;
         }
     }
@@ -198,7 +212,7 @@ public class ConsoleScreen
     private void Clear() => Draw(' ');
 
     /// <summary>Отображение фигуры на экране.</summary>
-    private void Draw(char symbol = _Symbol)
+    private void Draw(char symbol = SYMBOL)
     {
         Console.SetBufferSize(Console.WindowWidth, Console.WindowHeight);
 
@@ -211,7 +225,7 @@ public class ConsoleScreen
     /// <summary>Отображение подвала на экране.</summary>
     private void DrawFooter()
     {
-        if (_DrawAreaHeight < 0) return;
+        if (_DrawAreaHeight < 0 || _DrawAreaHeight >= Console.WindowHeight) return;
 
         Console.SetCursorPosition(0, _DrawAreaHeight);
         Console.WriteLine(Border);
@@ -226,4 +240,20 @@ public class ConsoleScreen
         Console.WriteLine('\n');
         Console.Write(_Footer);
     }
+
+    /// <summary>Полная очистка и отрисовка экрана при изменении размера консоли.</summary>
+    /// <returns>True, если экран был перерисован.</returns>
+    private bool RedrawAll()
+    {
+        if (_ConsoleSize.X != Console.WindowWidth || _ConsoleSize.Y != Console.WindowHeight)
+        {
+            Console.Clear();
+            Draw();
+            _ConsoleSize = new Vector(Console.WindowWidth, Console.WindowHeight);
+            return true;
+        }
+
+        return false;
+    }
+
 }

@@ -71,13 +71,13 @@ public readonly struct Vector
     /// <summary>Оператор умножения вектора на число.</summary>
     /// <param name="vector">Вектор.</param>
     /// <param name="value">Число.</param>
-    /// <returns>Новый вектор с координатами произведения координат операндов.</returns>
+    /// <returns>Новый вектор с координатами произведения координат вектора на число..</returns>
     public static Vector operator *(Vector vector, double value) => new Vector(vector.X * value, vector.Y * value);
 
     /// <summary>Оператор деления вектора на число.</summary>
     /// <param name="vector">Делимое.</param>
     /// <param name="value">Делитель.</param>
-    /// <returns>Новый вектор с координатами частного координат операндов.</returns>
+    /// <returns>Новый вектор с координатами частного координат вектора и числа.</returns>
     /// <exception cref="DivideByZeroException">Возбуждается, если делитель равен 0.</exception>
     public static Vector operator /(Vector vector, double value)
     {

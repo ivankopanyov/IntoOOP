@@ -1,12 +1,12 @@
 using IntoOOP.ConsoleDraw;
 
-const string footer = @"  ▲            1 -> Point      R -> Red     +  -> Size In
-◄   ► -> MOVE  2 -> Rectangle  G -> Green   -  -> Size Out
-  ▼            3 -> Circle     B -> Blue   Esc -> Exit";
+const string FOOTER = @"  ▲            1 -> Point      R -> Red     +  -> Size In
+◄   ► -> MOVE  2 -> Circle     G -> Green   -  -> Size Out
+  ▼            3 -> Rectangle  B -> Blue   Esc -> Exit";
 
 var screen = new ConsoleScreen();
 
-screen.Footer = footer;
+screen.Footer = FOOTER;
 screen.AddPoint();
 screen.AddCircle();
 screen.AddRectangle();
