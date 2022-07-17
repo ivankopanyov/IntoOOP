@@ -1,23 +1,24 @@
-using IntoOOP.Bank.UI;
-using IntoOOP.Bank.Screen;
+using IntoOOP.ConsoleDraw;
 
-#if DEBUG
+const string footer = @"  ▲            1 -> Point      R -> Red     +  -> Size In
+◄   ► -> MOVE  2 -> Rectangle  G -> Green   -  -> Size Out
+  ▼            3 -> Circle     B -> Blue   Esc -> Exit";
 
-var test = new IntoOOP.Bank.Tests.AccountTest();
-test.DoProcess();
-Console.Write("\nДля старта приложения нажмите любую клавишу...");
-Console.ReadKey(true);
-Console.SetCursorPosition(0, 0);
-Console.Clear();
+var screen = new ConsoleScreen();
 
-#endif
+screen.Footer = footer;
+screen.AddPoint();
+screen.AddCircle();
+screen.AddRectangle();
+screen.IsShow = true;
 
 Console.CursorVisible = false;
 
-var screen = new MainScreenDirector().Build();
+ConsoleKey key;
+
 while (true)
 {
-    screen.Show();
-    screen = screen.Control();
-    if (screen == UIScreen.Exit) return;
+    key = Console.ReadKey(true).Key;
+    if (key == ConsoleKey.Escape) return;
+    screen.KeyDown(key);
 }

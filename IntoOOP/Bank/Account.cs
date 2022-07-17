@@ -107,7 +107,47 @@ public class Account
         _ => "Не установлен"
     };
 
+    /// <summary>Оператор равенства счетов.</summary>
+    /// <param name="left">Первый счет для проверки.</param>
+    /// <param name="right">Второй счет для проверки.</param>
+    /// <returns>Счета равны, если они оба инициализированы и совпадает их номер.</returns>
+    public static bool operator ==(Account left, Account right) => left is not null && right is not null && left.Number == right.Number;
+
+    /// <summary>Оператор неравенства счетов.</summary>
+    /// <param name="left">Первый счет для проверки.</param>
+    /// <param name="right">Второй счет для проверки.</param>
+    /// <returns>Счета неравны, если хотябы один из счетов не инициализирован или несовпадают их номера.</returns>
+    public static bool operator !=(Account left, Account right) => !(left == right);
+
     /// <summary>Приведение экземпляра класса счета к типу строки.</summary>
-    /// <returns>Строка с информацией о счете.</returns>
-    public override string ToString() => $"{DisplayAccountType} счет №{Number} ";
+    /// <returns>Строка счета.</returns>
+    public override string ToString() => $"{DisplayAccountType} счет №{Number}, Баланс: {DisplayBalance}";
+
+    /// <summary>Переопределение метода проверки на эквивалентность двух счетов.</summary>
+    /// <param name="obj">Счет для проверки на эквивалентность.</param>
+    /// <returns>Возвращает true, если равны типы и баланс счетов.</returns>
+    public override bool Equals(object? obj)
+    {
+        if (obj is null || obj.GetType() != typeof(Account)) return false;
+
+        var other = (Account)obj;
+
+        return _Balance == other._Balance && AccountType == other.AccountType;
+    }
+
+    /// <summary>Переопределение метода генерирования хэш-кода.</summary>
+    /// <returns>Хэш-код</returns>
+    public override int GetHashCode()
+    {
+        var hash = 287;
+
+        unchecked
+        {
+            hash = (hash * 0x11f) ^ Number.GetHashCode();
+            hash = (hash * 0x11f) ^ AccountType.GetHashCode();
+            hash = (hash * 0x11f) ^ Balance.GetHashCode();
+        }
+
+        return hash;
+    }
 }
