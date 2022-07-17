@@ -12,7 +12,7 @@ public class ConsoleScreen
     private bool _IsShow;
 
     /// <summary>Список геометрических фигур.</summary>
-    private List<Figure> _Figures = new();
+    private List<IConsoleFigure> _Figures = new();
 
     /// <summary>Подвал экрана с информацией.</summary>
     private string _Footer = string.Empty;
@@ -21,7 +21,7 @@ public class ConsoleScreen
     private int _DrawAreaHeight = Console.WindowHeight - 3;
 
     /// <summary>Текущая отображаемая фигура.</summary>
-    private Figure _CurrentFigure = null!;
+    private IConsoleFigure _CurrentFigure = null!;
 
     /// <summary>Начальная позиция новой фигуры.</summary>
     private Vector _StartPos => new Vector(Console.WindowWidth / 4, _DrawAreaHeight / 2);
@@ -113,9 +113,9 @@ public class ConsoleScreen
             case ConsoleKey.DownArrow: Move(Vector.Down); break;
             case ConsoleKey.LeftArrow: Move(Vector.Left); break;
             case ConsoleKey.RightArrow: Move(Vector.Right); break;
-            case ConsoleKey.R: SetColor(Color.Red); break;
-            case ConsoleKey.G: SetColor(Color.Green); break;
-            case ConsoleKey.B: SetColor(Color.Blue); break;
+            case ConsoleKey.R: SetColor(ConsoleColor.Red); break;
+            case ConsoleKey.G: SetColor(ConsoleColor.Green); break;
+            case ConsoleKey.B: SetColor(ConsoleColor.Blue); break;
             case ConsoleKey.OemPlus: SetSize(1); break;
             case ConsoleKey.OemMinus: SetSize(-1); break;
         }
@@ -123,10 +123,10 @@ public class ConsoleScreen
 
     /// <summary>Добавление нового объекта фигуры.</summary>
     /// <param name="figure">Новый объект фигуры.</param>
-    private void Add(Figure figure)
+    private void Add(IConsoleFigure figure)
     {
         figure.Pos = _StartPos;
-        figure.Color = Color.Blue;
+        figure.Color = ConsoleColor.Blue;
         _Figures.Add(figure);
 
         if (_CurrentFigure == null)
@@ -165,7 +165,7 @@ public class ConsoleScreen
 
     /// <summary>Изменение цвета текущей отображаемой фигуры.</summary>
     /// <param name="color">Новый цвет.</param>
-    private void SetColor(Color color)
+    private void SetColor(ConsoleColor color)
     {
         if (color == _CurrentFigure.Color) return;
 
@@ -232,7 +232,7 @@ public class ConsoleScreen
 
         var info = _CurrentFigure!.ToString();
         Console.Write(info);
-        if (info.Length < _InfoLength)
+        if (info!.Length < _InfoLength)
             for (int i = 0; i < _InfoLength - info.Length; i++)
                 Console.Write(' ');
 
