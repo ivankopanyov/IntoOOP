@@ -3,8 +3,11 @@
 namespace IntoOOP.ConsoleDraw;
 
 /// <summary>Класс, описывающий окружность для работы с консольным интерфейсом.</summary>
-public class ConsoleCircle : Circle
+public class ConsoleCircle : Circle, IConsoleFigure
 {
+    /// <summary>Цвет окружности.</summary>
+    public ConsoleColor Color { get; set; }
+
     /// <summary>Инициализация объекта окружности.</summary>
     /// <param name="radius">Радиус окружности.</param>
     public ConsoleCircle(int radius) : base(radius) { }
@@ -13,19 +16,12 @@ public class ConsoleCircle : Circle
     /// <param name="areaStart">Начало области вывода.</param>
     /// <param name="areaSize">Размер области вывода.</param>
     /// <param name="symbol">Символ отрисовки фигуры.</param>
-    public override void Draw(Vector areaStart, Vector areaSize, char symbol)
+    public void Draw(Vector areaStart, Vector areaSize, char symbol)
     {
         if (IsHidden) return;
 
         var color = Console.ForegroundColor;
-        try
-        {
-            Console.ForegroundColor = (ConsoleColor)Color;
-        }
-        catch (ArgumentException)
-        {
-            Console.ForegroundColor = ConsoleColor.White;
-        }
+        Console.ForegroundColor = Color;
 
         var areaEnd = areaStart + new Vector(areaSize.X < 0 ? 0 : areaSize.X, areaSize.Y < 0 ? 0 : areaSize.Y);
 

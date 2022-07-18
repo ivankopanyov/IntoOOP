@@ -1,24 +1,16 @@
-using IntoOOP.ConsoleDraw;
+using IntoOOP.UI;
+using IntoOOP.Coder.UI;
 
-const string FOOTER = @"  ▲            1 -> Point      R -> Red     +  -> Size In
-◄   ► -> MOVE  2 -> Circle     G -> Green   -  -> Size Out
-  ▼            3 -> Rectangle  B -> Blue   Esc -> Exit";
-
-var screen = new ConsoleScreen();
-
-screen.Footer = FOOTER;
-screen.AddPoint();
-screen.AddCircle();
-screen.AddRectangle();
-screen.IsShow = true;
-
+var size = new Point(Console.WindowWidth, Console.WindowHeight);
+Console.SetWindowSize(size.X, size.Y);
+Console.SetBufferSize(size.X, size.Y);
 Console.CursorVisible = false;
 
-ConsoleKey key;
+var screen = new CoderScreenBuilder(size).Build();
 
 while (true)
 {
-    key = Console.ReadKey(true).Key;
-    if (key == ConsoleKey.Escape) return;
-    screen.KeyDown(key);
+    screen.Show();
+    screen = screen.Control();
+    if (screen == UIScreen.Exit) return;
 }

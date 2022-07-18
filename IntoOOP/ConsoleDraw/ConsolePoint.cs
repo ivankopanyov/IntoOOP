@@ -3,16 +3,17 @@
 namespace IntoOOP.ConsoleDraw;
 
 /// <summary>Класс, описывающий точку для работы с консольным интерфейсом.</summary>
-public class ConsolePoint : Point
+public class ConsolePoint : Point, IConsoleFigure
 {
+    /// <summary>Цвет точки.</summary>
+    public ConsoleColor Color { get; set; }
+
     /// <summary>Вывод точки в консоль.</summary>
     /// <param name="areaStart">Начало области вывода.</param>
     /// <param name="areaSize">Размер области вывода.</param>
     /// <param name="symbol">Символ отрисовки фигуры.</param>
-    public override void Draw(Vector areaStart, Vector areaSize, char symbol)
+    public void Draw(Vector areaStart, Vector areaSize, char symbol)
     {
-        if (IsHidden) return;
-
         var areaEnd = areaStart + new Vector(areaSize.X < 0 ? 0 : areaSize.X, areaSize.Y < 0 ? 0 : areaSize.Y);
 
         var pos = new Vector(Pos.X * 2, Pos.Y);
@@ -22,17 +23,13 @@ public class ConsolePoint : Point
 
         Console.SetCursorPosition((int)pos.X + (int)areaStart.X, (int)pos.Y + (int)areaStart.Y);
         var color = Console.ForegroundColor;
-        try
-        {
-            Console.ForegroundColor = (ConsoleColor)Color;
-        }
-        catch (ArgumentException)
-        {
-            Console.ForegroundColor = ConsoleColor.White;
-        }
+        Console.ForegroundColor = Color;
         Console.Write(symbol); 
         Console.Write(symbol);
         Console.ForegroundColor = color;
-
     }
+
+    /// <summary>Приведение объекта точки к строке с информацией об объекте точки.</summary>
+    /// <returns>Строка с информацией об объекте точки.</returns>
+    public override string ToString() => $"Point (pos: {Pos}, color: {Color})";
 }
